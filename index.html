@@ -1,0 +1,1672 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LagomVPN: private VPN that keeps you online</title>
+<meta name="description" content="LagomVPN is a VPN service for your phone, computer and TV that keeps your traffic encrypted and your connection working, even on restricted networks. Start with 10 GB free or go PRO with 25% off.">
+<meta name="theme-color" content="#6100FE">
+<script>
+  document.documentElement.classList.add('js');
+  if (/[?&]static\b/.test(location.search)) document.documentElement.classList.add('static');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/img/hero-ascii.webp" type="image/webp">
+<style>
+  @font-face { font-family: "Suisse"; src: local("Suisse Intl"), local("SuisseIntl-Regular"); font-weight: 400; }
+  @font-face { font-family: "Suisse"; src: local("Suisse Intl Book"), local("SuisseIntl-Book"); font-weight: 450; }
+  @font-face { font-family: "Suisse"; src: local("Suisse Intl Medium"), local("SuisseIntl-Medium"); font-weight: 500; }
+  @font-face { font-family: "Suisse"; src: local("Suisse Intl SemiBold"), local("SuisseIntl-SemiBold"); font-weight: 600; }
+  @font-face { font-family: "Manrope"; src: url("assets/fonts/manrope-latin-wght.woff2") format("woff2"); font-weight: 200 800; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  @font-face { font-family: "Manrope"; src: url("assets/fonts/manrope-latin-ext-wght.woff2") format("woff2"); font-weight: 200 800; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+  @font-face { font-family: "Manrope"; src: url("assets/fonts/manrope-cyrillic-wght.woff2") format("woff2"); font-weight: 200 800; font-display: swap; unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+
+  :root {
+    --font: "Suisse", "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    --mono: "Roboto Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+    --ink: #2E2F31; --muted: #86888E; --ink-2: #5E6066;
+    --tile: #F1F6F7; --line: #DEE5E7; --line-ui: #E6E8EC;
+    --violet: #6100FE; --violet-2: #5D1FEF; --trust: #7B42F6; --lilac-50: #EFE9FF;
+    --lime: #D7F771; --ok: #1FB874; --ok-ink: #0E7C4B; --dark: #141416;
+
+    --pad: clamp(16px, 5.56vw, 80px);
+    --wrap: 1280px;
+    --edge: max(var(--pad), calc((100% - var(--wrap)) / 2));
+    --sec: clamp(72px, 8.33vw, 120px);
+    --r: 6px;
+    --ease: cubic-bezier(.2, .7, .2, 1);
+    --ease-io: cubic-bezier(.65, 0, .25, 1);
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  body { margin: 0; background: #fff; color: var(--ink); font-family: var(--font); font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  img, video, svg { display: block; max-width: 100%; }
+  img { height: auto; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+  h1, h2, h3, p { margin: 0; }
+  .wrap { width: min(var(--wrap), calc(100% - var(--pad) * 2)); margin-inline: auto; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  :focus-visible { outline: 2px solid var(--violet); outline-offset: 3px; }
+  .on-dark :focus-visible { outline-color: #fff; }
+
+  .h1 { font-weight: 400; font-size: clamp(32px, 3.9vw, 56px); line-height: 1.04; letter-spacing: -.02em; }
+  .h2 { font-weight: 400; font-size: clamp(34px, 3.61vw, 52px); line-height: 1.08; letter-spacing: -.02em; }
+  .h2 .dim { color: var(--muted); }
+  .lead { font-size: clamp(16px, 1.25vw, 18px); line-height: 1.5; }
+  .ln { display: block; overflow: hidden; padding-bottom: .1em; margin-bottom: -.1em; }
+  .ln > span { display: inline-block; }
+  @media (min-width: 720px) { br.d { display: inline; } }
+  @media (max-width: 719px) { br.d { display: none; } }
+
+  .ico { width: 16px; height: 16px; flex: none; }
+  .ico-link { width: 16px; height: 16px; flex: none; transition: transform .25s var(--ease); }
+  a:hover .ico-link, button:hover .ico-link { transform: translate(2px, -2px); }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    height: 52px; min-width: 170px; padding: 0 22px; border-radius: var(--r);
+    font-size: 16px; font-weight: 500; line-height: 1; white-space: nowrap;
+    transition: background-color .2s, color .2s, box-shadow .2s, transform .2s;
+  }
+  .btn:active { transform: scale(.98); }
+  .btn--white { background: #fff; color: var(--ink); }
+  .btn--white:hover { background: var(--lilac-50); }
+  .btn--ghost { box-shadow: inset 0 0 0 1px #fff; color: #fff; }
+  .btn--ghost:hover { background: rgba(255,255,255,.12); }
+  .btn--dark { background: var(--ink); color: #fff; }
+  .btn--dark:hover { background: #000; }
+  .btn--tile { background: var(--tile); color: var(--ink); }
+  .btn--tile:hover { background: #E4ECEE; }
+  .btn--sm { height: 42px; min-width: 0; padding: 0 18px; font-size: 15px; gap: 12px; }
+  .btn--block { width: 100%; }
+
+  .nav { position: fixed; inset: 0 0 auto; z-index: 50; color: var(--ink); background: #fff; box-shadow: 0 1px 0 rgba(46,47,49,.08); transition: background-color .35s, color .35s, box-shadow .35s, transform .45s var(--ease); }
+  .nav .btn--white { background: #4C22F2; color: #fff; }
+  .nav .btn--white:hover { background: var(--violet); }
+  .nav__in { height: 52px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .logo { display: block; width: 122px; height: 28px; flex: none; }
+  .logo svg { width: 100%; height: 100%; }
+  .nav__links { display: flex; gap: 32px; font-size: 15px; line-height: 1; }
+  .nav__links a { opacity: 1; transition: opacity .2s; }
+  .nav__links a:hover { opacity: .64; }
+  .nav__right { display: flex; align-items: center; gap: 8px; }
+  .lang { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; font-size: 15px; line-height: 1; }
+  .nav .btn { height: 36px; min-width: 0; padding: 0 16px; font-size: 15px; }
+  .burger { display: none; width: 36px; height: 36px; place-items: center; }
+  .burger svg { width: 24px; height: 24px; }
+  .nav.is-solid, .nav.is-open { background: rgba(255,255,255,.9); color: var(--ink); box-shadow: 0 1px 0 rgba(46,47,49,.08); -webkit-backdrop-filter: saturate(1.6) blur(16px); backdrop-filter: saturate(1.6) blur(16px); }
+  .nav.is-hidden:not(.is-open) { transform: translateY(-100%); }
+  .nav__menu { display: none; }
+  @media (max-width: 1023px) {
+    .nav__links, .lang { display: none; }
+    .burger { display: grid; }
+    .nav .btn { min-width: 0; }
+    .nav__menu { display: block; position: absolute; inset: 52px 0 auto; background: #fff; color: var(--ink); padding: 8px var(--pad) 24px; box-shadow: 0 24px 40px -24px rgba(36,23,89,.25); visibility: hidden; opacity: 0; transform: translateY(-8px); transition: opacity .25s, transform .25s var(--ease), visibility 0s .25s; }
+    .nav.is-open .nav__menu { visibility: visible; opacity: 1; transform: none; transition: opacity .25s, transform .25s var(--ease); }
+    .nav__menu a { display: block; padding: 14px 0; font-size: 22px; line-height: 1.2; border-bottom: 1px solid var(--line); }
+  }
+  @media (max-width: 479px) { .nav .btn { display: none; } }
+
+  .hero { position: relative; min-height: 100vh; min-height: 100svh; display: flex; align-items: center; overflow: hidden; color: #fff; background: #4F37EE; isolation: isolate; }
+  .hero__bg { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
+  .hero__bg img, .hero__bg video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hero__bg video { opacity: 0; transition: opacity 1.2s; }
+  .hero__ascii { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .hero__bg video.is-playing { opacity: 1; }
+  .hero__in { position: relative; align-self: stretch; display: flex; align-items: center; padding: 120px 0 72px; }
+  .hero__copy { max-width: 613px; position: relative; }
+  .hero__phone { position: absolute; right: -7px; bottom: 0; width: min(546px, 42.7%); height: auto; pointer-events: none; }
+  .badge { display: inline-flex; align-items: center; gap: 10px; height: 38px; padding: 0 12px; border: 1px solid #fff; border-radius: var(--r); font-size: 14px; font-weight: 500; line-height: 1.45; }
+
+  .proof { list-style: none; margin: 92px 0 0; padding: 24px 0 0; display: flex; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,.24); max-width: 538px; }
+  .proof li { display: grid; gap: 2px; padding: 0 24px; border-left: 1px solid rgba(255,255,255,.24); }
+  .proof li:first-child { padding-left: 0; border-left: 0; }
+  .proof b { font-size: 16px; font-weight: 500; line-height: 1.4; }
+  .proof span { font-size: 14px; line-height: 1.4; color: rgba(255,255,255,.72); }
+  @media (max-width: 1023px) {
+    .hero__in { flex-direction: column; align-items: stretch; padding-bottom: 0; }
+    .hero__phone { position: relative; right: auto; order: 2; align-self: center; width: min(420px, 86%); margin-top: 40px; margin-bottom: -18%; }
+    .proof { margin-top: 48px; }
+  }
+  @media (max-width: 560px) {
+    .proof { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .proof li { padding: 0 10px; align-content: start; }
+    .proof li:first-child { padding-left: 0; }
+    .proof b { font-size: 14px; line-height: 1.3; } .proof span { font-size: 12px; line-height: 1.3; }
+  }
+  .hero h1 { margin: 20px 0; }
+  .hero h1 .dim { color: rgba(255,255,255,.7); }
+  .hero .lead { max-width: 600px; }
+  .hero__cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+  @media (max-width: 479px) { .hero__cta .btn { flex: 1 1 140px; min-width: 0; } }
+
+  .sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px 40px; flex-wrap: wrap; margin-bottom: clamp(32px, 3.9vw, 56px); }
+  .sec-head .h2 { max-width: 640px; }
+
+  .devices { padding-top: var(--sec); }
+  .dev-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 12px; }
+  .dev { position: relative; height: 170px; padding: 22px 16px 22px 18px; border-radius: var(--r); background: var(--tile); display: flex; flex-direction: column; justify-content: space-between; transition: background-color .25s; }
+  .dev:hover { background: #E4ECEE; }
+  .dev__logo { width: 34px; height: 34px; color: var(--ink); }
+  .dev span { font-size: 16px; font-weight: 500; line-height: 1.3; }
+  .dev__go { position: absolute; top: 18px; right: 16px; opacity: 0; transform: translate(-4px, 4px); transition: opacity .25s, transform .25s var(--ease); }
+  .dev:hover .dev__go, .dev:focus-visible .dev__go { opacity: 1; transform: none; }
+  @media (max-width: 1100px) { .dev-list { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  @media (max-width: 560px) { .dev-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; } .dev { height: 132px; padding: 18px 16px; } }
+
+  .features { padding-top: var(--sec); }
+  .features .h2 { margin-bottom: clamp(32px, 3.9vw, 56px); }
+  .grid-f { display: grid; grid-template-columns: minmax(0, 632fr) minmax(0, 628fr); gap: 20px; }
+  .grid-f__col { display: grid; grid-template-rows: 1fr 1fr; gap: 20px; }
+  .card { position: relative; border-radius: var(--r); overflow: hidden; isolation: isolate; }
+  .card__bg { position: absolute; inset: 0; z-index: -2; }
+  .card__bg img, .card__bg video { width: 100%; height: 100%; object-fit: cover; }
+  .ftext { font-size: clamp(18px, 1.53vw, 22px); line-height: 1.4; }
+  .ftext .t { display: block; }
+  .on-dark .ftext { color: rgba(255,255,255,.72); }
+  .on-dark .ftext .t { color: #fff; }
+
+  .fc1 { min-height: 680px; padding: 32px; color: #fff; background: #4F37EE; }
+  .fc1 .ftext { max-width: 518px; }
+  .fc1 .btn { margin-top: 28px; align-self: flex-start; }
+  .fc1__phone { position: absolute; right: 0; bottom: 0; width: 64.7%; z-index: -1; }
+
+  .fs { min-height: 330px; padding: 32px; background: var(--tile); }
+  .fs .ftext { font-size: clamp(16px, 1.25vw, 18px); max-width: 330px; color: var(--muted); }
+  .fs .ftext .t { color: var(--ink); }
+  .fs .btn { margin-top: 24px; }
+  .fs__ks { position: absolute; top: 26px; right: 28px; }
+  .fs__3d { position: absolute; top: 32px; right: 39px; width: 185px; }
+
+  .ks { width: 192px; display: grid; gap: 8px; }
+  .ks__photo { height: 174px; border-radius: 12px; overflow: hidden; background: #000; }
+  .ks__photo img { width: 100%; height: 100%; object-fit: cover; }
+  .ks__chips { display: flex; gap: 8px; }
+  .chip { height: 40px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 0 12px; border-radius: 12px; background: #fff; color: var(--ink); font-size: 13px; font-weight: 500; line-height: 1; white-space: nowrap; }
+  .chip:first-child { flex: 1; }
+  .chip--on { color: var(--ok-ink); padding: 0 19px 0 20px; }
+  .led { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); position: relative; flex: none; }
+  .led::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--ok); animation: led 2.4s ease-out infinite; }
+  @keyframes led { 0% { transform: scale(1); opacity: .6; } 70%, 100% { transform: scale(3); opacity: 0; } }
+
+  @media (max-width: 1023px) {
+    .grid-f { grid-template-columns: 1fr; }
+    .grid-f__col { grid-template-rows: auto; }
+    .fc1 { min-height: 0; padding-bottom: 0; display: flex; flex-direction: column; }
+    .fc1__phone { position: relative; width: min(409px, 80%); align-self: flex-end; margin: 24px -32px 0 0; }
+    .fs { min-height: 280px; }
+    .fs .ftext { max-width: calc(100% - 260px); }
+  }
+
+  @media (max-width: 767px) {
+    .fs { min-height: 0; padding: 24px; display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
+    .fs .ftext { max-width: none; }
+    .fs .btn { margin-top: 0; }
+    .fs__ks, .fs__3d { position: static; }
+    .fs__ks { width: 150px; }
+    .fs__ks .ks__photo { height: 136px; }
+    .fs__ks .chip { height: 34px; font-size: 12px; padding: 0 10px; }
+    .fs__ks .chip--on { padding: 0 12px; }
+    .fs__3d { width: 130px; }
+  }
+
+  .uses { position: relative; z-index: 1; padding-top: var(--sec); }
+  .uses__box { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: 300px 300px 220px; gap: 16px; }
+  .uses__panel { grid-column: 1 / 3; grid-row: 1 / 3; position: relative; overflow: hidden; isolation: isolate; border-radius: var(--r); color: #fff; background: #4B22ED; }
+  .uses__photo { position: absolute; z-index: 0; max-width: none; filter: blur(16px) saturate(1.06); transform: translateZ(0); pointer-events: none; user-select: none; }
+  .uses__shade { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, rgba(34,8,150,.6) 0%, rgba(34,8,150,.42) 24%, rgba(34,8,150,.12) 40%, rgba(34,8,150,0) 50%); }
+  .uses__ascii { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; display: block; }
+  .uses__grain { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: .22; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.4 -.2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .uses__head { position: relative; z-index: 2; padding: 36px; max-width: 532px; display: grid; gap: 16px; }
+  .uses__head .h2 { font-size: clamp(36px, 3.61vw, 52px); }
+  .uses__head p { color: rgba(255,255,255,.7); }
+  .uses__list { display: contents; list-style: none; margin: 0; padding: 0; }
+  .use { position: relative; display: flex; flex-direction: column; padding: 28px; border-radius: var(--r); overflow: hidden; color: var(--ink); background: var(--tile) center / cover no-repeat; }
+  .use svg { width: 24px; height: 24px; flex: none; fill: currentColor; }
+  .use h3 { margin-top: auto; padding-top: 24px; font-size: 20px; font-weight: 500; line-height: 25px; }
+  .use p { margin-top: 10px; font-size: 16px; line-height: 22px; color: rgba(46,47,49,.64); }
+  .use--dark { color: #fff; }
+  .use--dark p { color: rgba(255,255,255,.64); }
+  .use--c02 { background-image: url("assets/img/uses-c02.webp"); }
+  .use--c03 { background-image: url("assets/img/uses-c03.webp"); }
+  .use--c05 { background-image: url("assets/img/uses-c05.webp"); background-position: right center; }
+
+  .use--c06 { background: #4616E5; }
+  .use--c06 > :not(.eyes) { position: relative; z-index: 1; }
+  .eyes { position: absolute; top: 0; right: 0; height: 100%; aspect-ratio: 632 / 220; pointer-events: none; }
+  .eyes img { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .eye { position: absolute; aspect-ratio: 1; border-radius: 50%; background: #fff; transition: transform .09s ease-in; }
+  .eye.is-blink { transform: scaleY(.08); transition-duration: .07s; }
+  .eye b { position: absolute; left: 50%; top: 50%; width: var(--ps); aspect-ratio: 1; border-radius: 50%; background: var(--ink);
+    transform: translate(-50%, -50%) translate(calc(var(--dx, var(--rx)) * 100%), calc(var(--dy, var(--ry)) * 100%));
+    transition: transform .35s cubic-bezier(.34, 1.8, .5, 1); }
+  .mouth { position: absolute; height: 1.8%; min-height: 3px; border-radius: 4px; background: var(--ink); transform-origin: 50% 50%; transition: transform .25s cubic-bezier(.34, 1.8, .5, 1); }
+  .use:nth-child(1) { grid-column: 3; grid-row: 1; }
+  .use:nth-child(2) { grid-column: 4; grid-row: 1; }
+  .use:nth-child(3) { grid-column: 3; grid-row: 2; }
+  .use:nth-child(4) { grid-column: 4; grid-row: 2; }
+  .use:nth-child(5) { grid-column: 1 / 3; grid-row: 3; }
+  .use:nth-child(6) { grid-column: 3 / 5; grid-row: 3; }
+  .use:nth-child(n+5) h3, .use:nth-child(n+5) p { max-width: 380px; }
+
+  @media (max-width: 1023px) {
+    .uses__box { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; grid-auto-rows: auto; }
+    .uses__panel { grid-column: 1 / -1; grid-row: auto; min-height: 400px; }
+    .use:nth-child(n) { grid-column: auto; grid-row: auto; min-height: 280px; }
+    .use:nth-child(n+5) { grid-column: 1 / -1; min-height: 220px; }
+  }
+
+  @media (max-width: 767px) {
+    .uses__box { grid-template-columns: 1fr; gap: 12px; }
+    .uses__panel { min-height: 0; }
+    .uses__head { padding: 28px 24px 36px; }
+    .uses__head .h2 { font-size: 34px; }
+    .use { padding: 24px; }
+    .use:nth-child(n) { grid-column: 1; min-height: 240px; }
+    .use--c02, .use--c03 { min-height: 320px; }
+    .use--c05 { background-size: cover; }
+    .eye[data-pair="d"] { display: none; }
+  }
+
+  .dome-section { position: relative; margin-top: var(--sec); }
+
+  .dome-section { --cards-gap: 20vh; z-index: 0; }
+  .dome-gap { height: var(--cards-gap); }
+  .sticky { position: sticky; top: 0; height: 100vh; background: #fff; }
+
+  .dome-fill { position: absolute; inset: 0; background: var(--trust); opacity: 0; will-change: opacity; pointer-events: none; }
+  .dome-canvas { position: absolute; left: 0; bottom: 0; width: 100%; height: calc(100% + 25vh); pointer-events: none; }
+  .intro { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); padding-inline: var(--pad); text-align: center; color: #fff; z-index: 2; }
+  .intro h2 { font-weight: 450; font-size: clamp(38px, 4.45vw, 64px); line-height: 1.08; letter-spacing: -.02em; }
+  .intro p { margin-top: 24px; font-size: clamp(16px, 1.25vw, 18px); line-height: 1.5; color: rgba(255,255,255,.72); }
+
+  @media (max-width: 1024px), (hover: none) {
+    .dome-section { background: var(--trust); }
+    .dome-gap, .dome-canvas, .dome-fill { display: none; }
+    .sticky { position: relative; height: auto; background: var(--trust); padding: 96px 0 8px; }
+    .intro { position: relative; top: auto; transform: none; }
+  }
+
+  .trust { --k: 1; position: relative; z-index: 3; color: #fff; padding: clamp(24px, 3.9vw, 56px) 0 clamp(64px, 6.67vw, 96px); overflow: hidden; }
+  @media (max-width: 1279px) { .trust { --k: .88; } }
+  @media (max-width: 720px) { .trust { --k: .78; } }
+  .rail-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+  .eyebrow { font-size: 15px; font-weight: 500; line-height: 1.2; color: rgba(255,255,255,.8); }
+
+  .rail { --lift: 200px; list-style: none; margin: 0 0 calc(-1 * var(--lift)); padding: 0 var(--edge) calc(8px + var(--lift)); display: flex; align-items: flex-start; gap: calc(16px * var(--k)); overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; scroll-snap-type: x proximity; scroll-padding-inline: var(--edge); scrollbar-width: none; cursor: grab; }
+  .rail::-webkit-scrollbar { display: none; }
+  .rail { pointer-events: none; }
+  .rail > li { pointer-events: auto; }
+  .rail.is-drag { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+  .rail.is-pinned { scroll-snap-type: none; cursor: default; }
+  .rail > li { flex: none; width: calc(var(--w) * var(--k) * 1px); scroll-snap-align: start; }
+  .tc { position: relative; height: calc(var(--h) * var(--k) * 1px); border-radius: var(--r); overflow: hidden; isolation: isolate; background: var(--bg, #fff); }
+  .tc__vis { position: absolute; left: 0; right: 0; top: calc(var(--vt, 200) * var(--k) * 1px); display: flex; justify-content: center; }
+  .tc__rb { position: absolute; left: 0; right: 0; top: calc(90px * var(--k)); height: 100%; }
+  .tc > img, .tc > video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; pointer-events: none; transition: transform .8s var(--ease); }
+  @media (hover: hover) { .rail > li:hover .tc > img, .rail > li:hover .tc > video { transform: scale(1.04); } }
+  .cap { position: absolute; z-index: 1; top: calc(28px * var(--k)); left: calc(28px * var(--k)); right: calc(28px * var(--k)); display: grid; gap: calc(8px * var(--k)); color: #fff; }
+  .cap h3 { display: flex; align-items: center; gap: 8px; font-size: calc(20px * var(--k)); font-weight: 500; line-height: 1.25; }
+  .cap p { font-size: calc(15px * var(--k)); line-height: 1.45; color: rgba(255,255,255,.78); }
+  .tc--light .cap { color: var(--ink); }
+  .tc--light .cap p { color: rgba(46,47,49,.7); }
+  .cap a { display: inline-flex; align-items: center; gap: 4px; color: #fff; font-weight: 500; text-decoration: underline; text-underline-offset: 2px; text-decoration-color: rgba(255,255,255,.5); }
+  .cap a:hover { text-decoration-color: #fff; }
+  .cap a .ico-link { width: 14px; height: 14px; }
+  .pill { display: inline-flex; align-items: center; height: 21px; padding: 0 9px; border-radius: 99px; font-size: 11px; font-weight: 600; letter-spacing: .02em; line-height: 1; }
+  .pill--lime { background: var(--lime); color: var(--ink); }
+  .pill--soft { background: var(--lilac-50); color: var(--violet); }
+  .pill--violet { background: var(--violet-2); color: #fff; }
+
+  .links { position: relative; display: flex; flex-wrap: wrap; gap: 12px 32px; margin-top: clamp(48px, 6.4vw, 92px); padding-top: 24px; border-top: 1px solid rgba(255,255,255,.24); }
+  .links a { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; line-height: 1.2; }
+  .links a .ico-link { width: 14px; height: 14px; }
+
+  .ui { font-size: calc(13.5px * var(--k)); color: var(--ink); background: #fff; border-radius: calc(14px * var(--k)); padding: calc(18px * var(--k)); box-shadow: 0 24px 60px -24px rgba(36,23,89,.3); }
+  .ui__label { display: flex; align-items: center; justify-content: space-between; padding-bottom: .9em; font-size: .85em; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); }
+  .ui__label .pill { font-size: .95em; text-transform: none; }
+  .zero { display: flex; align-items: baseline; gap: .6em; padding-bottom: .9em; }
+  .zero b { font-size: 3.4em; font-weight: 500; line-height: 1.15; letter-spacing: -.04em; color: var(--violet); }
+  .zero span { color: var(--ink-2); }
+  .row { display: flex; align-items: center; justify-content: space-between; gap: .8em; padding: .82em 0; border-top: 1px solid var(--line-ui); }
+  .row span:last-child { color: var(--ink-2); }
+  .opt { display: flex; align-items: center; gap: .82em; padding: .82em; border-radius: .82em; background: var(--tile); }
+  .opt + .opt { margin-top: .52em; }
+  .opt.is-on { background: var(--lilac-50); }
+  .opt > span:nth-child(2) { flex: 1; display: grid; gap: .1em; }
+  .opt b { font-weight: 600; }
+  .opt small { font-size: .86em; color: var(--ink-2); }
+  .opt .pill { font-size: .82em; height: 1.9em; }
+  .radio { width: 1.26em; height: 1.26em; border-radius: 50%; flex: none; box-shadow: inset 0 0 0 1.5px #C4C8CF; background: #fff; transition: box-shadow .3s var(--ease); }
+  .opt.is-on .radio { box-shadow: inset 0 0 0 .37em var(--violet); }
+
+  .cipher { width: 80%; font-size: calc(13.5px * var(--k)); color: #fff; display: grid; gap: .96em; }
+  .cipher__top { display: flex; align-items: center; justify-content: space-between; }
+  .cipher__lock { width: 3.2em; height: 3.2em; border-radius: .9em; background: var(--violet); display: grid; place-items: center; }
+  .cipher__lock svg { width: 1.5em; height: 1.5em; }
+  .cipher__alg { font-family: var(--mono); font-size: .9em; color: var(--lime); border: 1px solid rgba(215,247,113,.4); border-radius: 99px; padding: .4em .9em; }
+  .cipher__plain { font-family: var(--mono); background: rgba(255,255,255,.08); border-radius: .67em; padding: .8em .96em; color: rgba(255,255,255,.9); }
+  .cipher__plain span { color: rgba(255,255,255,.5); margin-right: .5em; }
+  .cipher__arrow { color: rgba(255,255,255,.45); }
+  .cipher__arrow svg { width: 1.2em; height: 1.2em; transform: rotate(90deg); }
+  .cipher__out { font-family: var(--mono); line-height: 1.75; letter-spacing: .04em; color: var(--lime); min-height: 7em; white-space: pre; }
+  .cipher__out em { font-style: normal; color: rgba(255,255,255,.4); }
+
+  .ribbons { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .ribbons.rb1 { transform-origin: 50% 64%; animation: sway-a 7s ease-in-out infinite; }
+  .ribbons.rb2 { transform-origin: 50% 51%; animation: sway-c 5s ease-in-out infinite; }
+  .ribbons.rb3 { transform-origin: 50% 37%; animation: sway-b 8s ease-in-out infinite; }
+  @keyframes sway-a { 50% { transform: translateY(10px) scaleY(1.06); } }
+  @keyframes sway-b { 50% { transform: translateY(-12px) scaleY(1.05); } }
+  @keyframes sway-c { 50% { transform: translateY(4px); opacity: .6; } }
+
+  .pricing { padding-top: var(--sec); }
+  .pricing__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px 40px; flex-wrap: wrap; }
+  .pricing__intro { max-width: 640px; display: grid; gap: 20px; }
+  .pricing__intro .lead, .faq-answer { color: var(--muted); }
+  .tabs { position: relative; display: flex; gap: 4px; padding: 4px; border-radius: var(--r); background: var(--tile); }
+  .tabs__ind { position: absolute; top: 4px; bottom: 4px; left: 0; width: 0; border-radius: 4px; background: #fff; box-shadow: 0 1px 2px rgba(46,47,49,.06); transform: translateX(var(--x, 4px)); width: var(--w, 0); transition: transform .35s var(--ease), width .35s var(--ease); }
+  .tab { position: relative; height: 42px; padding: 0 18px; border-radius: 4px; font-size: 15px; font-weight: 500; line-height: 1.2; color: var(--muted); transition: color .2s; }
+  .tab:hover { color: var(--ink); }
+  .tab[aria-selected="true"] { color: var(--ink); }
+  .plans { margin-top: clamp(32px, 3.9vw, 56px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  .plan { min-height: 659px; padding: 32px; border-radius: var(--r); background: var(--tile); display: flex; flex-direction: column; justify-content: space-between; gap: 40px; }
+  .plan__top { display: grid; justify-items: start; gap: 16px; }
+  .plan__name { font-size: 18px; font-weight: 500; line-height: 1.4; }
+  .price { display: flex; align-items: baseline; gap: 10px; }
+  .price b { font-size: clamp(48px, 4.45vw, 64px); font-weight: 400; line-height: 1; letter-spacing: -.03em; }
+  .price span { font-size: 18px; line-height: 1.4; color: var(--muted); }
+  .plan__note { font-size: 16px; line-height: 1.5; color: var(--muted); }
+  .plan__chip { height: 31px; padding: 0 12px; border-radius: var(--r); background: #fff; font-size: 13px; font-weight: 500; line-height: 1; transition: background-color .2s; }
+  .plan__chip:hover { background: var(--lilac-50); }
+  .plan hr { margin: 32px 0; border: 0; border-top: 1px solid var(--line); }
+  .feats { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .feats li { display: flex; align-items: center; gap: 12px; font-size: 16px; line-height: 1.5; }
+  .feats > li > svg { width: 20px; height: 20px; flex: none; color: var(--violet); }
+  .feats b { font-weight: 500; }
+  .feats a { display: inline-flex; align-items: center; gap: 4px; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  .feats a .ico-link { width: 14px; height: 14px; }
+  .feats__2l { align-items: flex-start !important; }
+  .feats__2l > svg { margin-top: 2px; }
+  .feats small { display: block; margin-top: 2px; font-size: 14px; line-height: 1.45; opacity: .64; }
+  .plan__cta { display: grid; gap: 12px; text-align: center; font-size: 14px; line-height: 1.4; color: var(--muted); }
+  .plan--pro { background: var(--violet); color: #fff; }
+  .plan--pro .price span, .plan--pro .plan__note, .plan--pro .plan__cta { color: #fff; }
+  .plan--pro hr { border-color: rgba(255,255,255,.24); }
+  .plan--pro .feats > li > svg { color: #fff; }
+  .plan--pro .btn--white:hover { background: var(--lilac-50); }
+  .plans-more { display: flex; justify-content: center; margin-top: 32px; }
+  .swap { display: inline-block; }
+  @media (max-width: 900px) {
+    .plans { grid-template-columns: 1fr; }
+    .plan { min-height: 0; padding: 24px; }
+  }
+
+  .how { padding-top: var(--sec); }
+  .how__help { font-size: clamp(16px, 1.25vw, 18px); line-height: 1.5; color: var(--muted); }
+  .how__help a { display: inline-flex; align-items: center; gap: 4px; color: var(--ink); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  .how__help .ico-link { width: 16px; height: 16px; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .step__visual { position: relative; height: 420px; border-radius: var(--r); overflow: hidden; isolation: isolate; display: grid; place-items: center; }
+  .step__visual--tile { background: var(--tile); }
+  .step__visual--violet { background: var(--violet); }
+  .step__visual--deep { background: linear-gradient(170deg, #4200AD 0%, #1B0047 100%); }
+  .step__visual--deep::after { content: ""; position: absolute; left: -63%; top: 120%; width: 145%; height: 220%; border-radius: 50%; background: #2F2FD8; opacity: .4; filter: blur(120px); mix-blend-mode: screen; z-index: -1; }
+  .step__title { display: flex; align-items: center; gap: 14px; margin-top: 28px; }
+  .step__n { width: 36px; height: 36px; flex: none; display: grid; place-items: center; border: 1px solid var(--line); border-radius: var(--r); font-size: 15px; font-weight: 500; line-height: 1; }
+  .step h3 { font-size: clamp(19px, 1.53vw, 22px); font-weight: 400; line-height: 1.4; }
+  .step__text { margin-top: 12px; padding-left: 50px; font-size: clamp(16px, 1.25vw, 18px); line-height: 1.5; color: var(--muted); }
+  .how__cta { display: flex; justify-content: center; margin-top: clamp(40px, 3.9vw, 56px); }
+
+  .appicon { display: grid; justify-items: center; gap: 16px; }
+  .appicon img { width: 158px; height: 158px; border-radius: 36px; box-shadow: 0 28.7px 57.5px -12px rgba(71,10,242,.35); }
+  .appicon span { font-size: 19px; font-weight: 500; line-height: 1.3; }
+
+  .sheet { position: relative; width: min(373px, calc(100% - 40px)); padding: 36px 16px 16px; border-radius: 24px; background: #1A181B; color: #fff; box-shadow: 0 24px 48px -8px rgba(13,0,64,.45); display: grid; gap: 12px; }
+  .sheet__grab { position: absolute; top: 12px; left: 50%; width: 50px; height: 4px; margin-left: -25px; border-radius: 2px; background: #2C2C32; }
+  .sheet__label { margin-bottom: 0; font-size: 12px; font-weight: 500; line-height: 1.3; color: rgba(255,255,255,.6); }
+  .srv { position: relative; height: 56px; padding: 0 16px; border-radius: 16px; background: rgba(118,118,128,.12); display: flex; align-items: center; gap: 12px; }
+  .srv__flag { width: 24px; height: 18px; flex: none; }
+  .srv b { flex: 1; font-size: 15px; font-weight: 500; line-height: 1.3; }
+  .srv span { font-size: 14px; line-height: 1.3; color: rgba(255,255,255,.6); }
+  .srv__sig { width: 16px; height: 16px; color: rgba(255,255,255,.6); flex: none; }
+  .srv__pick, .srv__radio { width: 24px; height: 24px; flex: none; }
+  .srv__radio { border-radius: 50%; background: radial-gradient(circle, rgba(118,118,128,.24) 0 10px, transparent 10.5px); }
+  .tap { position: absolute; left: 174px; top: 50%; width: 64px; height: 64px; margin-top: -32px; border-radius: 50%; background: rgba(255,255,255,.18); pointer-events: none; animation: tap 2.6s ease-out infinite; }
+  .tap::after { content: ""; position: absolute; inset: 14.5px; border-radius: 50%; background: rgba(255,255,255,.45); }
+  @keyframes tap { 0%, 100% { transform: scale(.85); opacity: 0; } 12% { transform: scale(1); opacity: 1; } 40% { transform: scale(1.05); opacity: 1; } 70% { transform: scale(1.25); opacity: 0; } }
+
+  .power { position: relative; width: 170px; height: 170px; }
+  .power__halo { position: absolute; border-radius: 50%; background: rgba(98,74,255,.12); inset: -51px; animation: halo 3.2s ease-in-out infinite; }
+  .power__halo.h1 { inset: -93px; background: rgba(98,74,255,.07); animation-delay: .4s; }
+  .power__btn { position: absolute; inset: 0; border-radius: 50%; display: grid; place-items: center; color: #fff;
+    background: radial-gradient(circle at 50% 30%, rgba(166,144,253,.55), rgba(97,78,242,.55) 60%);
+    box-shadow: 0 4px 57px rgba(98,74,255,.7), inset 0 6.5px 10px -3.8px #fff, inset 0 36px 52px -33px rgba(255,255,255,.5), inset 0 -76px 64px -60px #A690FD, inset 0 4px 17px rgba(166,144,253,.3); }
+  .power__btn svg { width: 45px; height: 45px; }
+  @keyframes halo { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.06); opacity: .75; } }
+  @media (max-width: 1023px) {
+    .steps { grid-template-columns: 1fr; gap: 40px; }
+    .step__visual { height: clamp(320px, 90vw, 420px); }
+  }
+
+  .faq { padding-block: var(--sec); }
+  .faq__in { display: grid; grid-template-columns: minmax(0, 410fr) minmax(0, 790fr); gap: clamp(32px, 5.56vw, 80px); align-items: start; }
+  .faq__in .h2 { position: sticky; top: 96px; }
+  .qa-list { display: grid; gap: 8px; }
+  .qa { border-radius: var(--r); background: var(--tile); }
+  .qa h3 { font: inherit; }
+  .qa__q { width: 100%; display: flex; align-items: center; gap: 24px; padding: 22px 22px 22px 32px; text-align: left; font-size: clamp(16px, 1.25vw, 18px); font-weight: 500; line-height: 1.4; color: var(--ink); }
+  .qa__q > span:first-child { flex: 1; }
+  .qa__toggle { width: 36px; height: 36px; flex: none; display: grid; place-items: center; border-radius: var(--r); background: #fff; transition: background-color .2s; }
+  .qa__q:hover .qa__toggle { background: var(--lilac-50); }
+  .qa__toggle svg { width: 20px; height: 20px; transition: transform .5s var(--ease-io); }
+  .qa.is-open .qa__toggle svg { transform: rotate(45deg); }
+
+  .qa__a { --gap: -14px; display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows .5s var(--ease-io), margin-top .5s var(--ease-io), opacity .3s ease; }
+  .qa.is-open .qa__a { grid-template-rows: 1fr; margin-top: var(--gap); opacity: 1; transition: grid-template-rows .5s var(--ease-io), margin-top .5s var(--ease-io), opacity .45s ease .1s; }
+  .qa__a > div { min-height: 0; overflow: hidden; }
+  .qa__a p { padding: 0 82px 28px 32px; font-size: clamp(16px, 1.25vw, 18px); line-height: 1.5; color: var(--muted); }
+  .qa__a a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+  @media (max-width: 900px) {
+    .faq__in { grid-template-columns: 1fr; }
+    .faq__in .h2 { position: static; }
+    .qa__q { padding: 18px 16px 18px 20px; gap: 16px; }
+    .qa__a { --gap: -8px; }
+    .qa__a p { padding: 0 20px 22px; }
+  }
+
+  .ftr { background: var(--trust); color: #fff; padding: clamp(56px, 6.1vw, 88px) 0 24px; }
+  .ftr__offer { display: flex; justify-content: space-between; align-items: flex-start; gap: 32px 40px; flex-wrap: wrap; }
+  .ftr__title { max-width: 620px; font-weight: 400; font-size: clamp(36px, 3.9vw, 56px); line-height: 1.04; letter-spacing: -.02em; }
+  .ftr__side { width: min(420px, 100%); display: grid; justify-items: start; gap: 20px; }
+  .ftr__side p { font-size: clamp(16px, 1.25vw, 18px); line-height: 1.5; }
+  .ftr__side .btn { min-width: 0; }
+  .ftr__cols { display: grid; grid-template-columns: minmax(0, 388fr) repeat(3, minmax(0, 277fr)); gap: 20px; margin-top: 72px; }
+  .ftr__cols > * { padding-top: 20px; border-top: 1px solid rgba(255,255,255,.2); }
+  .ftr__logo { display: block; width: 88px; height: 28px; }
+  .ftr__logo svg { width: 100%; height: 100%; }
+  .ftr__brand p { max-width: 340px; padding: 18px 0 20px; font-size: 16px; line-height: 1.45; }
+  .stores { display: flex; flex-wrap: wrap; gap: 8px; }
+  .store { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 14px; border-radius: var(--r); background: rgba(255,255,255,.12); box-shadow: inset 0 0 0 1px rgba(255,255,255,.16); font-size: 14px; font-weight: 500; line-height: 1; transition: background-color .2s; }
+  .store:hover { background: rgba(255,255,255,.2); }
+  .store svg { width: 16px; height: 16px; }
+  .ftr__h { font-size: 14px; line-height: 1.4; color: rgba(255,255,255,.62); }
+  .ftr__col ul { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 6px; }
+  .ftr__col a { font-size: 16px; line-height: 1.35; transition: opacity .2s; }
+  .ftr__col a:hover, .ftr__legal a:hover, .ftr__status:hover { opacity: .7; }
+  .ftr__bottom { display: flex; justify-content: space-between; align-items: center; gap: 12px 24px; flex-wrap: wrap; margin-top: 64px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.2); font-size: 14px; line-height: 1.4; color: rgba(255,255,255,.62); }
+  .ftr__status { display: inline-flex; align-items: center; gap: 8px; }
+  .ftr__legal a[aria-current] { color: #fff; }
+  @media (max-width: 1023px) {
+    .ftr__cols { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 40px; }
+    .ftr__brand { grid-column: 1 / -1; }
+  }
+  @media (max-width: 600px) {
+    .ftr__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 56px; }
+    .ftr__bottom { margin-top: 48px; flex-direction: column; align-items: flex-start; }
+  }
+
+  html.js:not(.static) [data-hero] { opacity: 0; }
+  @media (prefers-reduced-motion: reduce) {
+    html.js [data-hero] { opacity: 1 !important; }
+    .led::after, .ribbons, .tap, .power__halo { animation: none; }
+    .qa__a, .qa__toggle svg { transition: none !important; }
+    .dome-section { background: var(--trust); }
+    .dome-gap { display: none; }
+    .sticky { position: relative; background: var(--trust); max-height: 900px; }
+    .dome-canvas { display: none; }
+  }
+  html.static .led::after, html.static .ribbons, html.static .tap, html.static .power__halo { animation: none; }
+  html.static .qa__a, html.static .qa__toggle svg { transition: none !important; }
+  html.static .dome-section { background: var(--trust); }
+  html.static .dome-gap { display: none; }
+  html.static .sticky { position: relative; background: var(--trust); max-height: 900px; }
+  html.static .dome-canvas { display: none; }
+  html.static .nav { position: absolute; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M7 17 17 7M8.5 7H17v8.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 20 20"><path d="M3.75 10.42 7.92 14.58 16.25 5.42" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3Z"/></g></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></g></symbol>
+  <symbol id="i-power" viewBox="0 0 24 24"><path d="M12 3v8M6.6 6.6a8 8 0 1 0 10.8 0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-signal" viewBox="0 0 16 16"><path d="M12.67 12V4M3.33 12v-2M8 12V7.33" fill="none" stroke="currentColor" stroke-width="2.67" stroke-linecap="round"/></symbol>
+  <symbol id="i-picked" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#624AFF"/><path d="M8.3 12.4l2.2 2.2 5.1-5.1" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+
+  <symbol id="d-apple" viewBox="0 0 34 34"><path fill="currentColor" d="M17.22 9.77c-1.35 0-3.42-1.53-5.61-1.47-2.89.04-5.54 1.67-7.03 4.27-3 5.2-.77 12.9 2.15 17.13 1.44 2.06 3.13 4.37 5.37 4.3 2.15-.09 2.96-1.4 5.57-1.4 2.6 0 3.33 1.4 5.61 1.34 2.32-.04 3.79-2.1 5.21-4.18 1.64-2.39 2.32-4.71 2.36-4.84-.06-.02-4.51-1.73-4.56-6.88-.04-4.3 3.51-6.37 3.68-6.46-2.02-2.96-5.13-3.29-6.22-3.37-2.83-.22-5.2 1.55-6.53 1.55ZM22 5.43c1.2-1.44 1.98-3.44 1.77-5.43-1.71.07-3.77 1.14-5.01 2.58-1.1 1.27-2.06 3.31-1.8 5.26 1.9.15 3.84-.97 5.04-2.41"/></symbol>
+  <symbol id="d-android" viewBox="0 0 34 34"><path d="M9.35 8.78 6.94 4.67m17.71 4.11 2.41-4.11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path fill="currentColor" d="M2.13 27.63C2.13 19.41 8.78 12.75 17 12.75s14.88 6.66 14.88 14.88H2.13Z"/><circle cx="10.48" cy="21.25" r="1.77" fill="#fff"/><circle cx="23.52" cy="21.25" r="1.77" fill="#fff"/></symbol>
+  <symbol id="d-windows" viewBox="0 0 34 34"><path fill="currentColor" d="M1.42 1.42h14.73v14.73H1.42V1.42Zm16.43 0h14.73v14.73H17.85V1.42ZM1.42 17.85h14.73v14.73H1.42V17.85Zm16.43 0h14.73v14.73H17.85V17.85Z"/></symbol>
+  <symbol id="d-linux" viewBox="0 0 34 34"><path fill="currentColor" d="M17 2.13c-3.83 0-5.95 2.97-5.95 7.22 0 2.55-.85 4.25-2.41 6.52-1.7 2.41-2.69 5.24-2.12 8.5.57 3.12 2.83 5.38 5.95 6.23h9.07c3.12-.85 5.38-3.11 5.95-6.23.57-3.26-.43-6.09-2.13-8.5-1.56-2.27-2.41-3.97-2.41-6.52 0-4.25-2.12-7.22-5.95-7.22Z"/><ellipse cx="17" cy="22.1" rx="5.95" ry="7.08" fill="#fff"/><circle cx="14.73" cy="8.5" r="1.42" fill="#fff"/><circle cx="19.27" cy="8.5" r="1.42" fill="#fff"/><path fill="#F5B82E" d="M15.02 11.62h3.96L17 13.88l-1.98-2.26ZM7.37 30.6c0-1.84 1.98-2.83 4.81-2.41l1.99 3.68H8.78c-.85 0-1.41-.57-1.41-1.27Zm19.26 0c0-1.84-1.98-2.83-4.81-2.41l-1.99 3.68h5.39c.85 0 1.41-.57 1.41-1.27Z"/></symbol>
+  <symbol id="d-router" viewBox="0 0 36 36"><path d="M10.5 19.5 7.5 10.5m18 9 3-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><rect x="3.75" y="18.75" width="28.5" height="12" rx="2.25" fill="currentColor"/><circle cx="10.5" cy="24.75" r="1.7" fill="#fff"/><circle cx="15.75" cy="24.75" r="1.7" fill="#fff"/></symbol>
+  <symbol id="d-tv" viewBox="0 0 36 36"><rect x="3" y="6" width="30" height="20.25" rx="2.25" fill="currentColor"/><rect x="11.25" y="29.25" width="13.5" height="2.6" rx="1.3" fill="currentColor"/></symbol>
+  <symbol id="d-game" viewBox="0 0 36 36"><path fill="currentColor" d="M10.5 9.75h15a6.75 6.75 0 0 1 6.73 6.2l.77 7.67a4.4 4.4 0 0 1-7.8 3.06l-2.15-3.68H12.95L10.8 26.68a4.4 4.4 0 0 1-7.8-3.06l.77-7.67a6.75 6.75 0 0 1 6.73-6.2Z"/><path d="M12 14.6v5.3m-2.65-2.65h5.3" stroke="#fff" stroke-width="2" stroke-linecap="round"/><circle cx="24" cy="15.9" r="1.45" fill="#fff"/><circle cx="26.9" cy="18.8" r="1.45" fill="#fff"/></symbol>
+
+  <symbol id="f-de" viewBox="0 0 24 18"><clipPath id="fc-de"><rect width="24" height="18" rx="4"/></clipPath><g clip-path="url(#fc-de)"><path fill="#272727" d="M0 0h24v6H0z"/><path fill="#E31D1C" d="M0 6h24v6H0z"/><path fill="#FFD018" d="M0 12h24v6H0z"/></g></symbol>
+  <symbol id="f-tr" viewBox="0 0 24 18"><clipPath id="fc-tr"><rect width="24" height="18" rx="4"/></clipPath><g clip-path="url(#fc-tr)"><path fill="#E31D1C" d="M0 0h24v18H0z"/><path fill="#F7FCFF" d="M11.81 3.06c1.39 0 3.09.81 3.58 1.96-.01-.01-1.56-.89-3.32-.47-1.77.42-2.88 1.98-2.9 3.83-.01 1.97 1.24 3.31 2.85 3.71 1.59.39 3.27-.53 3.3-.55-.21.61-1.2 2.05-3.3 2.05-2.62 0-5.6-1.89-5.57-5.22.02-3.21 2.78-5.31 5.36-5.31Zm5 4.32 1.66-.56-1.02 1.43 1.56 1.34-1.97-.14-1.19 1.43.03-1.9-1.8-.64 1.6-.59-.06-1.69 1.19 1.32Z"/></g></symbol>
+  <symbol id="f-br" viewBox="0 0 24 18"><clipPath id="fc-br"><rect width="24" height="18" rx="4"/></clipPath><g clip-path="url(#fc-br)"><path fill="#093" d="M0 0h24v18H0z"/><path fill="#FFD221" d="m11.94 2.78 9.16 6.38-9.28 5.97-8.96-6.1 9.08-6.25Z"/><circle cx="12" cy="9.15" r="3.75" fill="#2E42A5"/><path fill="#F7FCFF" d="M8.6 8.1c2.6.2 4.8 1.1 6.5 2.5l-.4.5c-1.6-1.3-3.7-2.2-6.15-2.4l.05-.6Z"/></g></symbol>
+  <symbol id="i-lagom" viewBox="0 0 88 28"><g fill="currentColor"><path d="M14.59 21.06H0V0h3.16v17.93h11.43v3.13Z"/><path d="M14.57 17.06c-.08-1.23.28-2.32 1.09-3.28.82-.98 1.94-1.53 3.37-1.65l5.99-.54-.03-.24c-.04-.66-.32-1.19-.84-1.59a3.6 3.6 0 0 0-1.62-.82 9.1 9.1 0 0 0-1.87-.18c-1.76 0-3.22.33-4.36.99l-.9-2.47c1.72-1.04 3.72-1.56 5.98-1.56 2.13 0 3.79.53 5 1.59 1.22 1.04 1.83 2.63 1.83 4.75v9h-3.16v-1.9c-1.62 1.47-3.44 2.2-5.44 2.2-1.37 0-2.52-.42-3.46-1.27-.94-.84-1.47-1.85-1.57-3.03Zm3.01-.54c-.02.58.2 1.09.66 1.53.46.42 1.1.64 1.93.66 1.12 0 2.17-.31 3.13-.93.96-.62 1.54-1.19 1.74-1.71v-2.23l-4.9.57c-.84.1-1.48.34-1.9.72-.42.38-.64.84-.66 1.38Z"/><path d="M30.24 13.54c0-2.15.68-3.98 2.05-5.51 1.38-1.54 3.05-2.32 4.99-2.32 1.04 0 1.99.23 2.83.69.86.44 1.51 1.04 1.96 1.81V6.02h3.16v13.86c0 2.57-.67 4.4-2.02 5.51-1.32 1.12-3.22 1.68-5.68 1.68-2.87 0-5.1-.95-6.68-2.86l1.26-2.43c1.16 1.58 2.99 2.38 5.48 2.38 2.99 0 4.48-1.4 4.48-4.21v-1.05c-.48.76-1.14 1.36-1.98 1.81-.84.44-1.78.66-2.8.66-1.95 0-3.61-.76-4.99-2.29-1.36-1.52-2.05-3.37-2.05-5.54Zm10.65-3.7c-.78-.86-1.84-1.29-3.16-1.29s-2.38.47-3.16 1.41c-.78.94-1.17 2.14-1.17 3.58s.39 2.64 1.17 3.58c.78.94 1.84 1.41 3.16 1.41s2.38-.43 3.16-1.29c.78-.86 1.17-2.1 1.17-3.7s-.39-2.84-1.17-3.7Z"/><path d="M49.5 19.07c-1.46-1.52-2.19-3.37-2.19-5.53s.73-4.01 2.19-5.54c1.49-1.54 3.26-2.32 5.33-2.32 2.13 0 3.93.78 5.41 2.32 1.51 1.53 2.26 3.37 2.26 5.54s-.75 4.01-2.26 5.53c-1.48 1.53-3.28 2.29-5.41 2.29-2.09 0-3.86-.76-5.33-2.29Zm.88-5.53c0 1.36.41 2.5 1.23 3.4.82.9 1.9 1.35 3.22 1.35 1.38 0 2.5-.45 3.34-1.35.84-.9 1.26-2.04 1.26-3.4 0-1.4-.42-2.57-1.26-3.49-.84-.94-1.96-1.41-3.34-1.41-1.32 0-2.4.47-3.22 1.41-.82.92-1.23 2.09-1.23 3.49Z"/><path d="M64.66 21.06V6.02h3.16V8.6c.08-.22.2-.44.36-.66.16-.24.41-.55.75-.93.36-.38.87-.69 1.53-.93.66-.24 1.41-.36 2.26-.36 2.33 0 3.86.96 4.6 2.89.16-.58.73-1.2 1.71-1.87.98-.68 2.24-1.02 3.76-1.02 3.47 0 5.2 2.03 5.2 6.08v9.26h-3.16v-8.42c0-1.36-.29-2.37-.87-3.01-.58-.66-1.36-.99-2.35-.99-1.2 0-2.14.39-2.8 1.17-.66.76-.99 1.62-.99 2.59v8.66h-3.16v-8.42c0-2.67-1.04-4-3.13-4-1.2 0-2.13.39-2.77 1.17-.64.76-.96 1.62-.96 2.59v8.66h-3.16Z"/><path d="M25.12 0h-2.4l-2.71 4.5h2.41L25.12 0Z"/></g></symbol>
+  <symbol id="i-play" viewBox="0 0 16 16"><path fill="currentColor" d="M3 1.87 9.07 8 3 14.13a.8.8 0 0 1-.33-.66V2.53c0-.27.13-.53.33-.66Zm6.8 6.86 1.53 1.53-7.06 4a.64.64 0 0 1-.4.07l5.93-5.6Zm2.33-2.33 1.67.93c.47.27.47 1.07 0 1.34l-1.73 1-1.73-1.67 1.8-1.6ZM4.27 1.6c.13 0 .27 0 .4.07l7.06 4-1.53 1.53L4.27 1.6Z"/></symbol>
+  <symbol id="i-apple" viewBox="0 0 16 16"><path fill="currentColor" d="M10.93 8.4c0-1.6 1.34-2.4 1.4-2.47-.73-1.13-1.93-1.27-2.33-1.27-1-.13-1.93.6-2.47.6-.53 0-1.27-.6-2.13-.53-1.07 0-2.07.67-2.67 1.6-1.13 2-.27 4.87.8 6.47.53.8 1.2 1.67 2 1.6.8 0 1.13-.53 2.07-.53 1 0 1.27.53 2.13.53.87 0 1.47-.8 2-1.6.6-.93.87-1.8.87-1.87-.07 0-1.67-.67-1.67-2.53ZM9.33 3.6c.47-.53.74-1.27.67-2-.67 0-1.4.4-1.87.93-.4.47-.8 1.2-.66 1.94.73.06 1.4-.34 1.86-.87Z"/></symbol>
+  <symbol id="i-wordmark" viewBox="0 0 140 32"><g fill="currentColor"><path d="M18.93 23.67H6V5h2.8v15.89h10.13v2.78Z"/><path d="M18.92 20.12c-.07-1.08.25-2.05.96-2.91.73-.87 1.72-1.36 2.99-1.47l5.3-.48-.02-.21c-.04-.59-.29-1.06-.75-1.41-.44-.38-.92-.62-1.44-.72-.5-.11-1.05-.16-1.65-.16-1.57 0-2.86.29-3.87.88l-.8-2.19c1.53-.92 3.3-1.39 5.31-1.39 1.88 0 3.36.47 4.42 1.41 1.09.93 1.63 2.33 1.63 4.21v7.97h-2.8v-1.68c-1.44 1.3-3.05 1.95-4.83 1.95-1.21 0-2.23-.37-3.07-1.12-.83-.75-1.3-1.65-1.39-2.69Zm2.67-.48c-.02.52.18.97.59 1.36.41.37.98.57 1.71.59 1 0 1.92-.28 2.77-.83.85-.55 1.37-1.06 1.55-1.52v-1.97l-4.35.51c-.75.09-1.31.3-1.68.64-.37.34-.57.75-.59 1.23Z"/><path d="M32.81 17c0-1.9.6-3.53 1.81-4.88 1.23-1.37 2.7-2.05 4.43-2.05.92 0 1.76.2 2.51.61.76.39 1.34.92 1.73 1.6v-1.95h2.8v12.29c0 2.28-.6 3.9-1.79 4.88-1.17 1-2.85 1.5-5.04 1.5-2.54 0-4.52-.84-5.92-2.53l1.12-2.16c1.03 1.4 2.65 2.11 4.85 2.11 2.65 0 3.97-1.24 3.97-3.73v-.93c-.43.68-1.01 1.21-1.76 1.6-.75.39-1.57.59-2.48.59-1.72 0-3.2-.68-4.43-2.03-1.21-1.35-1.81-2.99-1.81-4.91Zm9.44-3.28c-.69-.76-1.63-1.15-2.8-1.15s-2.11.42-2.8 1.25c-.69.84-1.04 1.89-1.04 3.17s.35 2.34 1.04 3.17c.69.84 1.63 1.25 2.8 1.25s2.11-.38 2.8-1.15c.69-.76 1.04-1.86 1.04-3.28s-.35-2.52-1.04-3.28Z"/><path d="M49.88 21.91c-1.3-1.35-1.95-2.99-1.95-4.91s.65-3.56 1.95-4.91c1.32-1.37 2.89-2.05 4.72-2.05 1.88 0 3.48.68 4.8 2.05 1.33 1.35 2 2.99 2 4.91s-.67 3.56-2 4.91c-1.32 1.35-2.92 2.03-4.8 2.03-1.85 0-3.42-.68-4.72-2.03Zm.78-4.91c0 1.21.36 2.21 1.09 3.01.73.8 1.68 1.2 2.85 1.2 1.23 0 2.21-.4 2.96-1.2.75-.8 1.12-1.8 1.12-3.01 0-1.24-.37-2.28-1.12-3.09-.75-.84-1.73-1.25-2.96-1.25-1.17 0-2.12.42-2.85 1.25-.73.82-1.09 1.85-1.09 3.09Z"/><path d="M63.32 23.67V10.33h2.8v2.29c.07-.2.18-.39.32-.59.14-.21.36-.49.67-.83.32-.34.77-.61 1.36-.83.59-.21 1.25-.32 2-.32 2.06 0 3.42.85 4.08 2.56.14-.52.65-1.07 1.52-1.65.87-.6 1.98-.91 3.33-.91 3.08 0 4.61 1.8 4.61 5.39v8.21h-2.8V16.2c0-1.21-.26-2.1-.77-2.67-.52-.59-1.21-.88-2.08-.88-1.07 0-1.89.35-2.48 1.04-.59.68-.88 1.44-.88 2.29v7.68h-2.8V16.2c0-2.36-.92-3.55-2.77-3.55-1.07 0-1.89.35-2.45 1.04-.57.68-.85 1.44-.85 2.29v7.68h-2.8Z"/><path d="M92.26 23.67 85.03 5h2.91l5.71 14.8L99.38 5h2.91l-7.23 18.67h-2.8Z"/><path d="M103.53 23.67V5h6.59c2.08 0 3.72.52 4.93 1.57 1.21 1.03 1.81 2.52 1.81 4.48 0 1.96-.6 3.44-1.81 4.45-1.19 1-2.84 1.5-4.93 1.5h-3.79v6.67h-2.8Zm6.53-15.9h-3.73v6.46h3.73c1.37 0 2.37-.27 3.01-.8.66-.53.99-1.36.99-2.48 0-.96-.34-1.72-1.01-2.29-.66-.59-1.65-.88-2.99-.88Z"/><path d="M118.92 23.67V5h3.09l9.6 14.43V5h2.8v18.67h-3.09l-9.6-14.43v14.43h-2.8Z"/><path d="M28.27 5h-2.13l-2.4 3.99h2.13L28.27 5Z"/></g></symbol>
+</svg>
+
+<header class="nav" id="nav" data-hero>
+  <div class="wrap nav__in">
+    <a class="logo" href="#top" aria-label="LagomVPN home"><svg><use href="#i-wordmark"/></svg></a>
+    <nav class="nav__links" aria-label="Main">
+      <a href="#pricing">Free &amp; PRO</a>
+      <a href="#why">Why Lagom</a>
+      <a href="#how">How it works</a>
+      <a href="#for">What it's for</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav__right">
+      <button class="lang" type="button" aria-label="Language: English"><svg class="ico"><use href="#i-globe"/></svg>EN<svg class="ico"><use href="#i-chevron"/></svg></button>
+      <a class="btn btn--white" href="/download">Download free</a>
+      <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu"><svg><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+  <nav class="nav__menu" id="nav-menu" aria-label="Main">
+    <a href="#pricing">Free &amp; PRO</a>
+    <a href="#why">Why Lagom</a>
+    <a href="#how">How it works</a>
+    <a href="#for">What it's for</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+</header>
+
+<main id="top">
+
+<section class="hero on-dark" aria-labelledby="hero-title">
+  <div class="hero__bg" aria-hidden="true" data-hero>
+    <img src="assets/img/hero-gradient-poster.webp" alt="" fetchpriority="high">
+    <video muted loop playsinline preload="auto" poster="assets/img/hero-gradient-poster.webp"><source src="assets/video/hero-gradient.mp4" type="video/mp4"></video>
+    <canvas class="hero__ascii"></canvas>
+  </div>
+  <div class="wrap hero__in">
+    <img class="hero__phone" src="assets/img/hero-phone-connected.webp" alt="LagomVPN app on an iPhone: VPN connected, power button" width="1160" height="1518" fetchpriority="high" data-hero>
+    <div class="hero__copy">
+      <p class="badge" data-hero>10 GB free · no card needed</p>
+      <h1 class="h1" id="hero-title">
+        <span class="ln"><span data-hero>LagomVPN: private VPN</span></span>
+        <span class="ln"><span data-hero>that <span class="dim">keeps you online</span></span></span>
+      </h1>
+      <p class="lead" data-hero>LagomVPN is a VPN service for your phone, computer and TV that keeps your traffic encrypted and your connection working, even on restricted networks. Start with 10 GB free or go PRO with 25% off.</p>
+      <div class="hero__cta" data-hero>
+        <a class="btn btn--white" href="/download">Download free</a>
+        <a class="btn btn--ghost" href="#pricing">Free vs PRO</a>
+      </div>
+      <ul class="proof" data-hero>
+        <li><b>10 GB free</b><span>No card needed</span></li>
+        <li><b>3 locations, you pick</b><span>Choose where you connect</span></li>
+        <li><b>No ads. No logs.</b><span>Even on the free plan</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="why" aria-labelledby="why-title">
+  <div class="wrap">
+    <h2 class="h2" id="why-title" data-split>
+      <span class="ln"><span>A secure VPN</span></span>
+      <span class="ln"><span class="dim">that keeps working</span></span>
+    </h2>
+
+    <div class="grid-f">
+      <article class="card fc1 on-dark" data-card>
+        <div class="card__bg" aria-hidden="true"><video muted loop playsinline preload="none" poster="assets/img/hero-ascii.webp" data-inview data-zoom><source src="assets/video/hero-ascii.mp4" type="video/mp4"></video></div>
+        <p class="ftext"><span class="t">Works when other VPNs get blocked:</span> On restricted networks, standard VPN protocols can struggle or get blocked. LagomVPN uses VLESS to help keep your connection accessible.</p>
+        <a class="btn btn--white btn--sm" href="#faq-vless">Learn how VLESS works<svg class="ico-link" aria-hidden="true"><use href="#i-link"/></svg></a>
+        <img class="fc1__phone" src="assets/img/phone-lagom.webp" alt="LagomVPN app icon on a phone home screen" loading="lazy" width="720" height="751" data-rise>
+      </article>
+
+      <div class="grid-f__col">
+        <article class="card fs" data-card>
+          <p class="ftext"><span class="t">One tap to connect:</span> No setup or complicated settings. Open the app, tap connect, and you're online in seconds.</p>
+          <div class="ks fs__ks" aria-hidden="true">
+            <div class="ks__photo"><img src="assets/img/onetap-key.webp" alt="" loading="lazy" width="577" height="522"></div>
+            <div class="ks__chips">
+              <span class="chip"><svg class="ico"><use href="#i-globe"/></svg>Lagom</span>
+              <span class="chip chip--on"><i class="led"></i>On</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card fs" data-card>
+          <p class="ftext"><span class="t">A free plan without ads:</span> No banners and no 15-second videos before you connect. Free means free: 10 GB to start, no card needed.</p>
+          <a class="btn btn--dark btn--sm" href="#pricing">Compare Free and PRO<svg class="ico-link" aria-hidden="true"><use href="#i-link"/></svg></a>
+          <img class="fs__3d" src="assets/img/connect-3d.webp" alt="" loading="lazy" width="460" height="460" data-float>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="uses" id="for" aria-labelledby="for-title">
+  <div class="wrap">
+    <div class="uses__box" data-box>
+      <div class="uses__panel" data-tulip>
+        <img class="uses__photo" src="assets/img/tulip.webp" alt="" loading="lazy" draggable="false">
+        <div class="uses__shade" aria-hidden="true"></div>
+        <canvas class="uses__ascii" aria-hidden="true"></canvas>
+        <div class="uses__grain" aria-hidden="true"></div>
+        <div class="uses__head">
+        <h2 class="h2" id="for-title" data-split>
+          <span class="ln"><span>A VPN for everything</span></span>
+          <span class="ln"><span>you do online</span></span>
+        </h2>
+          <p class="lead" data-reveal>From social media to public Wi-Fi, <br class="d">one app keeps your connection private.</p>
+        </div>
+      </div>
+      <ol class="uses__list">
+        <li class="use"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 2.3c-1.6 2.1-2.5 4.7-2.5 7.7s.9 5.6 2.5 7.7c1.6-2.1 2.5-4.7 2.5-7.7S13.6 6.4 12 4.3ZM2.3 11h6.9v2H2.3v-2Zm12.5 0h6.9v2h-6.9v-2Z"/></svg><h3>Stay connected on restricted networks</h3><p>Apps and sites not loading on your network? Connect with LagomVPN and pick a location that works for you.</p></li>
+        <li class="use use--dark use--c02"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M4.5 4h15A2.5 2.5 0 0 1 22 6.5v9a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 15.5v-9A2.5 2.5 0 0 1 4.5 4Zm5.5 3.6v6.8l5.6-3.4L10 7.6Z"/><path d="M8 19.5h8V21H8z"/></svg><h3>Streaming on your terms</h3><p>Pick a location and keep watching the shows you love, at home or on the road.</p></li>
+        <li class="use use--dark use--c03"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21a2.2 2.2 0 1 0 0-4.4 2.2 2.2 0 0 0 0 4.4ZM6.8 13.8a7.4 7.4 0 0 1 10.4 0l-1.7 1.7a5 5 0 0 0-7 0l-1.7-1.7ZM3.4 10.4a12.2 12.2 0 0 1 17.2 0l-1.7 1.7a9.8 9.8 0 0 0-13.8 0l-1.7-1.7Z"/></svg><h3>Safer on public Wi-Fi</h3><p>Cafés, airports, hotels: encrypt your connection on networks you don't control, in one tap.</p></li>
+        <li class="use"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8 2 11.3h2.8V21h6v-5.5h2.4V21h6v-9.7H22L12 2.8Z"/></svg><h3>Your home connection wherever you go</h3><p>Keep using your favorite apps and services just like you do in your country, even when you're abroad.</p></li>
+        <li class="use use--c05"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h8v3.6H3zM13 8h8v3.6h-8zM4 13.2h7V21H4zM13 13.2h7V21h-7z"/><path d="M12 7.6C10.4 4.4 6.7 3.8 6.3 6c-.3 1.7 2.5 2 5.7 1.6Zm0 0c1.6-3.2 5.3-3.8 5.7-1.6.3 1.7-2.5 2-5.7 1.6Z"/></svg><h3>A free plan you can rely on</h3><p>Free 10 GB with no ads, no logs, and no card required. Enough for everyday messaging and browsing.</p></li>
+        <li class="use use--dark use--c06"><div class="eyes" aria-hidden="true"><img src="assets/img/uses-c06-art.webp" alt="" draggable="false"><i class="eye" data-pair="a" style="left:77.20%;top:27.05%;width:4.91%;--ps:30.0%;--rx:-0.74;--ry:-0.34"><b></b></i><i class="eye" data-pair="a" style="left:82.07%;top:25.59%;width:4.91%;--ps:30.0%;--rx:-0.74;--ry:-0.34"><b></b></i><i class="eye" data-pair="b" style="left:62.23%;top:9.86%;width:3.84%;--ps:30.0%;--rx:-0.82;--ry:-0.42"><b></b></i><i class="eye" data-pair="b" style="left:65.87%;top:8.18%;width:3.84%;--ps:30.0%;--rx:-0.80;--ry:-0.42"><b></b></i><i class="eye" data-pair="c" style="left:60.62%;top:26.27%;width:3.86%;--ps:29.9%;--rx:0.80;--ry:-0.41"><b></b></i><i class="eye" data-pair="c" style="left:56.98%;top:24.50%;width:3.86%;--ps:29.9%;--rx:0.80;--ry:-0.41"><b></b></i><i class="eye" data-pair="d" style="left:90.49%;top:74.27%;width:4.11%;--ps:30.0%;--rx:-0.53;--ry:-0.66"><b></b></i><i class="eye" data-pair="d" style="left:94.07%;top:77.00%;width:4.11%;--ps:30.0%;--rx:-0.54;--ry:-0.66"><b></b></i><i class="mouth" style="left:82.01%;top:44.05%;width:2.96%"></i></div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11.6a3.6 3.6 0 1 0 0-7.2 3.6 3.6 0 0 0 0 7.2ZM2 20.2c0-3.7 3.1-6.2 7-6.2s7 2.5 7 6.2v.8H2v-.8Zm14.6-8.8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm1.5 2.1c2.4.5 3.9 2.5 3.9 5.1V21h-4.3v-.8c0-2.4-1-4.4-2.6-5.6.9-.2 2-.2 3-.1Z"/></svg><h3>One plan for the whole household</h3><p>Unlimited data and devices on one PRO account. Connect every phone, laptop and TV at home.</p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="dome-section" id="trust" aria-labelledby="trust-title">
+  <div class="sticky">
+    <div class="dome-fill" aria-hidden="true"></div>
+    <canvas class="dome-canvas" aria-hidden="true"></canvas>
+    <div class="intro"><div class="intro__in">
+      <h2 id="trust-title">Why you can trust <br class="d">LagomVPN</h2>
+      <p>Here's what we don't do, what's <br class="d">built in, and where to check the details.</p>
+    </div></div>
+  </div>
+
+  <div class="dome-gap" aria-hidden="true"></div>
+  <div class="trust on-dark" role="region" aria-label="How LagomVPN keeps you private">
+  <div class="wrap rail-head">
+    <p class="eyebrow">How LagomVPN keeps you private</p>
+  </div>
+
+  <ul class="rail">
+    <li style="--w:400;--h:520">
+      <div class="tc">
+        <img src="assets/img/gradient-blue-white.webp" alt="" draggable="false" style="object-position:30% 50%">
+        <div class="cap">
+          <h3>No activity logs</h3>
+        <p>We don't keep records of what you do online. <br><a href="/no-logs">No-logs commitment<svg class="ico-link" aria-hidden="true"><use href="#i-link"/></svg></a></p>
+        </div>
+        <div class="tc__vis" style="--vt:205"><div class="ui" style="width:64.25%" aria-hidden="true">
+          <div class="ui__label"><span>Activity log</span><span class="pill pill--soft">Off</span></div>
+          <div class="zero"><b>0</b><span>records kept</span></div>
+          <div class="row"><span>Sites you visit</span><span>Not stored</span></div>
+          <div class="row"><span>Traffic &amp; DNS</span><span>Not stored</span></div>
+          <div class="row"><span>Session times</span><span>Not stored</span></div>
+        </div></div>
+      </div>
+    </li>
+
+    <li style="--w:400;--h:520">
+      <div class="tc tc--light">
+        <video muted loop playsinline preload="none" poster="assets/img/gradient-vless-poster.webp" data-inview><source src="assets/video/gradient-vless.mp4" type="video/mp4"></video>
+        <div class="cap">
+          <h3>VLESS</h3>
+        <p>Built for restricted networks where standard VPN protocols may struggle or get blocked.</p>
+        </div>
+        <div class="tc__vis" style="--vt:257"><div class="ui" style="width:75.25%" aria-hidden="true">
+          <div class="opt is-on"><span class="radio"></span><span><b>VLESS</b><small>For restricted networks</small></span><span class="pill pill--violet">Active</span></div>
+          <div class="opt"><span class="radio"></span><span><b>Auto</b><small>We pick the best one</small></span></div>
+        </div></div>
+      </div>
+    </li>
+
+    <li style="--w:400;--h:520">
+      <div class="tc" style="--bg:var(--dark)">
+        <div class="cap">
+          <h3>AES-256 encryption</h3>
+        <p>Keeps your internet traffic encrypted and your data private.</p>
+        </div>
+        <div class="tc__vis" style="--vt:213"><div class="cipher" style="width:72%" aria-hidden="true">
+          <div class="cipher__top">
+            <span class="cipher__lock"><svg><use href="#i-lock"/></svg></span>
+            <span class="cipher__alg">AES-256</span>
+          </div>
+          <div class="cipher__plain"><span>GET</span>/my-bank/login</div>
+          <div class="cipher__arrow"><svg><use href="#i-arrow"/></svg></div>
+          <div class="cipher__out" data-scramble>c7e5 96f1 ba35 f267
+c081 857f c762 0f78
+dd87 fcf0 4e6a 2f3d
+7bc3 8f99 8052 9ad7</div>
+        </div></div>
+      </div>
+    </li>
+
+    <li style="--w:400;--h:520">
+      <div class="tc" style="--bg:var(--violet)">
+        <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+          <defs>
+            <linearGradient id="rb-g1" x1="-40" y1="320" x2="440" y2="320" gradientUnits="userSpaceOnUse"><stop stop-color="#FFB08A" stop-opacity=".95"/><stop offset=".3" stop-color="#FF8FB8" stop-opacity=".75"/><stop offset=".5" stop-color="#FF8FB8" stop-opacity=".4"/><stop offset=".7" stop-color="#FF8FB8" stop-opacity=".75"/><stop offset="1" stop-color="#FFB08A" stop-opacity=".95"/></linearGradient>
+            <linearGradient id="rb-g2" x1="-40" y1="255" x2="440" y2="255" gradientUnits="userSpaceOnUse"><stop stop-color="#FFB08A" stop-opacity=".85"/><stop offset=".5" stop-color="#FF4FB8" stop-opacity=".25"/><stop offset="1" stop-color="#FFB08A" stop-opacity=".85"/></linearGradient>
+            <linearGradient id="rb-g3" x1="-40" y1="185" x2="440" y2="185" gradientUnits="userSpaceOnUse"><stop stop-color="#FFB08A"/><stop offset=".4" stop-color="#FF4FB8"/><stop offset=".6" stop-color="#FF4FB8" stop-opacity=".8"/><stop offset="1" stop-color="#FFB08A"/></linearGradient>
+          </defs>
+        </svg>
+        <div class="tc__rb">
+        <svg class="ribbons rb1" viewBox="0 0 390 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M-40 210C90 210 110 350 200 350C290 350 310 210 440 210V300C310 300 290 430 200 430C110 430 90 300 -40 300V210Z" fill="url(#rb-g1)"/></svg>
+        <svg class="ribbons rb2" viewBox="0 0 390 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path opacity=".9" d="M-40 222C120 218 280 228 440 222V288C280 282 120 292 -40 288V222Z" fill="url(#rb-g2)"/></svg>
+        <svg class="ribbons rb3" viewBox="0 0 390 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M-40 210C90 210 110 70 200 70C290 70 310 210 440 210V300C310 300 290 150 200 150C110 150 90 300 -40 300V210Z" fill="url(#rb-g3)"/></svg>
+        </div>
+        <div class="cap">
+          <h3>Split Tunneling <span class="pill pill--lime">PRO</span></h3>
+        <p>Choose which apps use the VPN and which connect directly to the internet.</p>
+        </div>
+      </div>
+    </li>
+
+    <li style="--w:400;--h:520">
+      <div class="tc tc--light" style="--bg:#AEACAF"><img src="assets/img/trust-noads.webp" alt="" draggable="false" loading="lazy">
+        <div class="cap">
+          <h3>No ads, even on Free</h3>
+        <p>Forget about endless ads.</p>
+        </div>
+      </div>
+    </li>
+
+    <li style="--w:400;--h:520">
+      <div class="tc" style="--bg:#17377E"><img src="assets/img/trust-notrackers.webp" alt="" draggable="false" loading="lazy">
+        <div class="cap">
+          <h3>No trackers</h3>
+        <p>We don't track your activity across the web.</p>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <div class="wrap">
+    <nav class="links" aria-label="Learn more">
+      <a href="/privacy">Read our Privacy Policy<svg class="ico-link" aria-hidden="true"><use href="#i-link"/></svg></a>
+      <a href="/security">Explore how LagomVPN approaches security<svg class="ico-link" aria-hidden="true"><use href="#i-link"/></svg></a>
+      <a href="/about">Learn about LagomVPN<svg class="ico-link" aria-hidden="true"><use href="#i-link"/></svg></a>
+      <a href="/help">Visit the Help Center<svg class="ico-link" aria-hidden="true"><use href="#i-link"/></svg></a>
+    </nav>
+  </div>
+</div>
+</section>
+
+<section class="pricing" id="pricing" aria-labelledby="pricing-title">
+  <div class="wrap">
+    <div class="pricing__head">
+      <div class="pricing__intro">
+        <h2 class="h2" id="pricing-title" data-split><span class="ln"><span>Choose your plan</span></span></h2>
+        <p class="lead" data-reveal>How much is a VPN? With LagomVPN, it starts at $0: 10 GB free, no card needed. Go PRO for unlimited data and devices with 25% off.</p>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Billing period" data-reveal>
+        <span class="tabs__ind" aria-hidden="true"></span>
+        <button class="tab" role="tab" type="button" aria-selected="true" data-period="monthly">Monthly</button>
+        <button class="tab" role="tab" type="button" aria-selected="false" data-period="annual">Annual</button>
+        <button class="tab" role="tab" type="button" aria-selected="false" data-period="2y">2 years</button>
+      </div>
+    </div>
+
+    <div class="plans" data-stagger>
+      <article class="plan" aria-labelledby="plan-free">
+        <div>
+          <div class="plan__top">
+            <h3 class="plan__name" id="plan-free">Free</h3>
+            <p class="price"><b>$0</b><span>forever</span></p>
+            <p class="plan__note">No card. No account needed to start.</p>
+            <button class="plan__chip" type="button" data-open-faq="faq-free">Wait — all this is free?</button>
+          </div>
+          <hr>
+          <ul class="feats">
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>10 GB</span></li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>1 device</span></li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><a href="/locations">3 locations to pick<svg class="ico-link" aria-hidden="true"><use href="#i-link"/></svg></a></li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>No ads. No trackers. No logs</span></li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>VLESS connection keeps working on strict networks</span></li>
+            <li class="feats__2l"><svg aria-hidden="true"><use href="#i-check"/></svg><span>AES-256 encryption<small>Keeps your internet traffic encrypted and your data private.</small></span></li>
+          </ul>
+        </div>
+        <div class="plan__cta">
+          <a class="btn btn--dark btn--block" href="/download">Download free</a>
+          <p>All your devices</p>
+        </div>
+      </article>
+
+      <article class="plan plan--pro on-dark" aria-labelledby="plan-pro">
+        <div>
+          <div class="plan__top">
+            <h3 class="plan__name" id="plan-pro">PRO · everything unlocked</h3>
+            <p class="price"><b class="swap" data-price>$5.99</b><span>/ month</span></p>
+            <p class="plan__note swap" data-billing>Billed monthly. Cancel anytime.</p>
+          </div>
+          <hr>
+          <ul class="feats">
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><b>Unlimited</b> data</span></li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><b>Unlimited</b> devices for 1 account</span></li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>All locations</span></li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Everything in Free +</span></li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Split Tunneling</span></li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Priority servers</span></li>
+          </ul>
+        </div>
+        <div class="plan__cta">
+          <a class="btn btn--white btn--block" href="/download?plan=pro">Try PRO — 7 days free</a>
+          <p>30-day money-back guarantee · renews at $X/month, shown before you pay</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="plans-more" data-reveal>
+      <a class="btn btn--tile" href="/pricing">Compare plans in detail<svg class="ico-link" aria-hidden="true"><use href="#i-link"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<section class="devices" id="devices" aria-labelledby="devices-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="h2" id="devices-title" data-split>
+        <span class="ln"><span>VPN software for every</span></span>
+        <span class="ln"><span>device you use</span></span>
+      </h2>
+      <a class="btn btn--tile" href="/download" data-reveal>See all supported devices<svg class="ico-link" aria-hidden="true"><use href="#i-link"/></svg></a>
+    </div>
+    <ul class="dev-list" data-stagger>
+      <li><a class="dev" href="/download/ios"><svg class="dev__logo" viewBox="0 0 34 34" aria-hidden="true"><use href="#d-apple"/></svg><span>iPhone/iPad</span><svg class="ico-link dev__go" aria-hidden="true"><use href="#i-link"/></svg></a></li>
+      <li><a class="dev" href="/download/android"><svg class="dev__logo" viewBox="0 0 34 34" aria-hidden="true"><use href="#d-android"/></svg><span>Android</span><svg class="ico-link dev__go" aria-hidden="true"><use href="#i-link"/></svg></a></li>
+      <li><a class="dev" href="/download/windows"><svg class="dev__logo" viewBox="0 0 34 34" aria-hidden="true"><use href="#d-windows"/></svg><span>Windows</span><svg class="ico-link dev__go" aria-hidden="true"><use href="#i-link"/></svg></a></li>
+      <li><a class="dev" href="/download/mac"><svg class="dev__logo" viewBox="0 0 34 34" aria-hidden="true"><use href="#d-apple"/></svg><span>Mac</span><svg class="ico-link dev__go" aria-hidden="true"><use href="#i-link"/></svg></a></li>
+      <li><a class="dev" href="/download/linux"><svg class="dev__logo" viewBox="0 0 34 34" aria-hidden="true"><use href="#d-linux"/></svg><span>Linux</span><svg class="ico-link dev__go" aria-hidden="true"><use href="#i-link"/></svg></a></li>
+      <li><a class="dev" href="/download/router"><svg class="dev__logo" viewBox="0 0 36 36" aria-hidden="true"><use href="#d-router"/></svg><span>Router</span><svg class="ico-link dev__go" aria-hidden="true"><use href="#i-link"/></svg></a></li>
+      <li><a class="dev" href="/download/tv"><svg class="dev__logo" viewBox="0 0 36 36" aria-hidden="true"><use href="#d-tv"/></svg><span>Smart TV</span><svg class="ico-link dev__go" aria-hidden="true"><use href="#i-link"/></svg></a></li>
+      <li><a class="dev" href="/download/console"><svg class="dev__logo" viewBox="0 0 36 36" aria-hidden="true"><use href="#d-game"/></svg><span>Game console</span><svg class="ico-link dev__go" aria-hidden="true"><use href="#i-link"/></svg></a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="how" id="how" aria-labelledby="how-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="h2" id="how-title" data-split>
+        <span class="ln"><span>How to get started</span></span>
+        <span class="ln"><span class="dim">with LagomVPN</span></span>
+      </h2>
+      <p class="how__help" data-reveal>Need a hand getting started? <a href="/help/setup">Read the setup guide<svg class="ico-link" aria-hidden="true"><use href="#i-link"/></svg></a></p>
+    </div>
+    <ol class="steps" data-stagger>
+      <li class="step">
+        <div class="step__visual step__visual--tile" aria-hidden="true">
+          <div class="appicon"><img src="assets/img/app-icon.webp" alt="" width="320" height="320" loading="lazy"><span>LagomVPN</span></div>
+        </div>
+        <div class="step__title"><span class="step__n">1</span><h3>Download</h3></div>
+        <p class="step__text">Put a VPN on your phone, laptop or TV: pick your device, get the app. No card needed.</p>
+      </li>
+      <li class="step">
+        <div class="step__visual step__visual--violet" aria-hidden="true">
+          <div class="sheet">
+            <i class="sheet__grab"></i>
+            <p class="sheet__label">Available servers</p>
+            <div class="srv is-on"><svg class="srv__flag" viewBox="0 0 24 18"><use href="#f-de"/></svg><b>Germany</b><span>100 ms</span><svg class="srv__sig" viewBox="0 0 16 16"><use href="#i-signal"/></svg><svg class="srv__pick" viewBox="0 0 24 24"><use href="#i-picked"/></svg><i class="tap"></i></div>
+            <div class="srv"><svg class="srv__flag" viewBox="0 0 24 18"><use href="#f-tr"/></svg><b>Turkey</b><span>100 ms</span><svg class="srv__sig" viewBox="0 0 16 16"><use href="#i-signal"/></svg><i class="srv__radio"></i></div>
+            <div class="srv"><svg class="srv__flag" viewBox="0 0 24 18"><use href="#f-br"/></svg><b>Brazil</b><span>100 ms</span><svg class="srv__sig" viewBox="0 0 16 16"><use href="#i-signal"/></svg><i class="srv__radio"></i></div>
+          </div>
+        </div>
+        <div class="step__title"><span class="step__n">2</span><h3>Tap connect</h3></div>
+        <p class="step__text">Press once and pick one of your 3 locations. That's the whole setup.</p>
+      </li>
+      <li class="step">
+        <div class="step__visual step__visual--deep" aria-hidden="true">
+          <div class="power"><i class="power__halo h1"></i><i class="power__halo h2"></i><span class="power__btn"><svg viewBox="0 0 24 24"><use href="#i-power"/></svg></span></div>
+        </div>
+        <div class="step__title"><span class="step__n">3</span><h3>You're live</h3></div>
+        <p class="step__text">Ad-free, no logs, and holding steady, even where others get cut off.</p>
+      </li>
+    </ol>
+    <div class="how__cta" data-reveal>
+      <a class="btn btn--dark" href="/download">Connect</a>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq" aria-labelledby="faq-title">
+  <div class="wrap faq__in">
+    <h2 class="h2" id="faq-title" data-split>
+      <span class="ln"><span>Questions before</span></span>
+      <span class="ln"><span>you install</span></span>
+    </h2>
+    <div class="qa-list" data-stagger>
+      <div class="qa is-open">
+        <h3><button class="qa__q" type="button" aria-expanded="true"><span>What is LagomVPN?</span><span class="qa__toggle" aria-hidden="true"><svg><use href="#i-plus"/></svg></span></button></h3>
+        <div class="qa__a"><div><p>LagomVPN is a VPN (virtual private network) app for phones, computers, TVs and routers. It encrypts your traffic and sends it through a server location you choose, so your connection stays private and keeps working on restricted networks.</p></div></div>
+      </div>
+      <div class="qa" id="faq-free">
+        <h3><button class="qa__q" type="button" aria-expanded="false"><span>Is the free plan really free — what's the catch?</span><span class="qa__toggle" aria-hidden="true"><svg><use href="#i-plus"/></svg></span></button></h3>
+        <div class="qa__a" inert><div><p>There's no catch. The free plan gives you 10 GB, 1 device and 3 locations with no ads, no trackers and no logs, and you don't need a card to start. We earn money from PRO subscriptions, not from your data.</p></div></div>
+      </div>
+      <div class="qa">
+        <h3><button class="qa__q" type="button" aria-expanded="false"><span>Will it slow me down?</span><span class="qa__toggle" aria-hidden="true"><svg><use href="#i-plus"/></svg></span></button></h3>
+        <div class="qa__a" inert><div><p>Any VPN adds a short detour for your traffic, so some speed loss is normal. LagomVPN connects you to the nearest location automatically to keep that loss small, and PRO adds priority servers for streaming and calls.</p></div></div>
+      </div>
+      <div class="qa">
+        <h3><button class="qa__q" type="button" aria-expanded="false"><span>Do you keep logs of what I do?</span><span class="qa__toggle" aria-hidden="true"><svg><use href="#i-plus"/></svg></span></button></h3>
+        <div class="qa__a" inert><div><p>No. We don't log the sites you visit, what you download or what you do online. We only process the minimum needed to run the service, such as how much of your free data you've used. The details are in our <a href="/privacy">Privacy Policy</a>.</p></div></div>
+      </div>
+      <div class="qa" id="faq-vless">
+        <h3><button class="qa__q" type="button" aria-expanded="false"><span>Why does it keep working when other VPNs stop?</span><span class="qa__toggle" aria-hidden="true"><svg><use href="#i-plus"/></svg></span></button></h3>
+        <div class="qa__a" inert><div><p>LagomVPN is a VLESS VPN. VLESS is a lightweight, modern protocol whose traffic is harder to tell apart from regular encrypted web traffic, so restrictive networks find it harder to spot and block than standard VPN protocols. It's included on every plan, including Free.</p></div></div>
+      </div>
+      <div class="qa">
+        <h3><button class="qa__q" type="button" aria-expanded="false"><span>How many devices, and can my family use it?</span><span class="qa__toggle" aria-hidden="true"><svg><use href="#i-plus"/></svg></span></button></h3>
+        <div class="qa__a" inert><div><p>The free plan covers 1 device. PRO includes unlimited devices on one account, so you can connect every phone, laptop and TV at home.</p></div></div>
+      </div>
+      <div class="qa">
+        <h3><button class="qa__q" type="button" aria-expanded="false"><span>Where can I get help?</span><span class="qa__toggle" aria-hidden="true"><svg><use href="#i-plus"/></svg></span></button></h3>
+        <div class="qa__a" inert><div><p>Visit the <a href="/help">LagomVPN Help Center</a> for setup guides and answers, or contact support right from the app.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="ftr on-dark">
+  <div class="wrap">
+    <div class="ftr__offer">
+      <h2 class="ftr__title" data-split>
+        <span class="ln"><span>Stay connected with</span></span>
+        <span class="ln"><span>LagomVPN</span></span>
+      </h2>
+      <div class="ftr__side" data-reveal>
+        <p>10 GB to start. No ads, no logs, just a secure VPN that keeps working.</p>
+        <a class="btn btn--white" href="/download">Download free</a>
+      </div>
+    </div>
+
+    <div class="ftr__cols" data-stagger>
+      <div class="ftr__brand">
+        <a class="ftr__logo" href="#top" aria-label="Lagom home"><svg viewBox="0 0 88 28" aria-hidden="true"><use href="#i-lagom"/></svg></a>
+        <p>Just enough VPN. It keeps your data yours and keeps working when the internet says no.</p>
+        <div class="stores">
+          <a class="store" href="#" aria-label="Get it on Google Play"><svg aria-hidden="true"><use href="#i-play"/></svg>Google Play</a>
+          <a class="store" href="#" aria-label="Download on the App Store"><svg aria-hidden="true"><use href="#i-apple"/></svg>App Store</a>
+        </div>
+      </div>
+      <nav class="ftr__col" aria-labelledby="f-product">
+        <p class="ftr__h" id="f-product">Product</p>
+        <ul>
+          <li><a href="#pricing">Free &amp; PRO</a></li>
+          <li><a href="#why">Why Lagom</a></li>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="/download">Download</a></li>
+        </ul>
+      </nav>
+      <nav class="ftr__col" aria-labelledby="f-trust">
+        <p class="ftr__h" id="f-trust">Trust</p>
+        <ul>
+          <li><a href="/privacy">Privacy policy</a></li>
+          <li><a href="/no-logs">No-logs commitment</a></li>
+          <li><a href="/status">Network status</a></li>
+          <li><a href="/security">Security</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+          <li><a href="/refunds">Refund Policy</a></li>
+        </ul>
+      </nav>
+      <nav class="ftr__col" aria-labelledby="f-company">
+        <p class="ftr__h" id="f-company">Company</p>
+        <ul>
+          <li><a href="/about">About Lagom</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/help">Help Center</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="ftr__bottom">
+      <a class="ftr__status" href="/status"><i class="led" aria-hidden="true"></i>All systems operational</a>
+      <p class="ftr__legal">© 2026 Lagom <span aria-hidden="true">·</span>
+        <a href="/" hreflang="en" aria-current="true">EN</a> <span aria-hidden="true">·</span>
+        <a href="/ru/" hreflang="ru">RU</a> <span aria-hidden="true">·</span>
+        <a href="/es/" hreflang="es">ES</a> <span aria-hidden="true">·</span>
+        <a href="/pt-br/" hreflang="pt-BR">PT</a> <span aria-hidden="true">·</span>
+        <a href="/tr/" hreflang="tr">TR</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/lenis@1.3.21/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(() => {
+  const root = document.documentElement;
+  const isStatic = root.classList.contains('static');
+  const reduce = isStatic || matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const animate = !reduce && !!window.gsap;
+  if (!animate) document.querySelectorAll('[data-hero]').forEach(el => el.style.opacity = 1);
+
+  let lenis = null;
+  if (animate) {
+    gsap.registerPlugin(ScrollTrigger);
+    if (window.Lenis) {
+
+      lenis = window.lenis = new Lenis({
+        virtualScroll: ({ deltaX, deltaY, event }) =>
+          !(Math.abs(deltaX) > Math.abs(deltaY) && event.target instanceof Element && event.target.closest('.rail:not(.is-pinned)'))
+      });
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add(t => lenis.raf(t * 1000));
+      gsap.ticker.lagSmoothing(0);
+    }
+  }
+  const scrollToEl = (el, offset = -80) => lenis ? lenis.scrollTo(el, { offset }) : el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+  document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+    const id = a.getAttribute('href').slice(1);
+    const el = id === 'top' ? document.body : document.getElementById(id);
+    if (!el) return;
+    e.preventDefault();
+    closeMenu();
+    if (el.classList.contains('qa')) setOpen(el, true);
+    scrollToEl(el, id === 'top' ? 0 : -80);
+  }));
+
+  const nav = document.getElementById('nav');
+  const hero = document.querySelector('.hero');
+  const burger = nav.querySelector('.burger');
+  function closeMenu() { nav.classList.remove('is-open'); burger.setAttribute('aria-expanded', 'false'); }
+  burger.addEventListener('click', () => {
+    const open = !nav.classList.contains('is-open');
+    nav.classList.toggle('is-open', open);
+    burger.setAttribute('aria-expanded', String(open));
+  });
+  let lastY = scrollY;
+  const onScroll = () => {
+    const y = scrollY;
+    nav.classList.toggle('is-solid', y > hero.offsetHeight - 52);
+    if (!isStatic) nav.classList.toggle('is-hidden', y > hero.offsetHeight && y > lastY + 2);
+    if (y < lastY - 2) nav.classList.remove('is-hidden');
+    lastY = y;
+  };
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  const heroVideo = document.querySelector('.hero__bg video');
+
+  const HERO_SPEED = 1.6;
+  heroVideo.defaultPlaybackRate = heroVideo.playbackRate = HERO_SPEED;
+  heroVideo.addEventListener('loadedmetadata', () => { heroVideo.playbackRate = HERO_SPEED; });
+  if (!reduce) {
+    heroVideo.addEventListener('playing', () => heroVideo.classList.add('is-playing'), { once: true });
+    heroVideo.play().catch(() => {});
+    new IntersectionObserver(([e]) => { e.isIntersecting ? heroVideo.play().catch(() => {}) : heroVideo.pause(); }).observe(heroVideo);
+  }
+
+  (() => {
+    const cv = document.querySelector('.hero__ascii');
+    if (!cv || reduce) return;
+    const hero = document.querySelector('.hero');
+    const bg = document.querySelector('.hero__bg');
+    const video = bg.querySelector('video'), poster = bg.querySelector('img');
+    const copy = document.querySelector('.hero__copy');
+    const ctx = cv.getContext('2d');
+    const CHARS = ['○', '*', '+', '·'];
+    const FONT = 12, CW = 9, CH = 14;
+    const COLOR = '#fff';
+    let W = 0, H = 0, dpr = 1, cols = 0, rows = 0;
+    let dens, vx, vy, tmp, tmpx, tmpy, luma, safe, atlas, running = false, visible = true, last = 0, lastSample = 0;
+    const samp = document.createElement('canvas'), sctx = samp.getContext('2d', { willReadFrequently: true });
+
+    function buildAtlas() {
+      atlas = document.createElement('canvas');
+      atlas.width = CW * dpr * CHARS.length; atlas.height = CH * dpr;
+      const a = atlas.getContext('2d');
+      a.scale(dpr, dpr); a.fillStyle = COLOR; a.textAlign = 'center'; a.textBaseline = 'middle';
+      a.font = `${FONT}px "Roboto Mono", ui-monospace, "SF Mono", Menlo, monospace`;
+      CHARS.forEach((c, i) => a.fillText(c, i * CW + CW / 2, CH / 2 + .5));
+    }
+    function resize() {
+      const r = bg.getBoundingClientRect();
+      W = r.width; H = r.height; dpr = Math.min(2, devicePixelRatio || 1);
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      cols = Math.ceil(W / CW); rows = Math.ceil(H / CH);
+      const n = cols * rows;
+      dens = new Float32Array(n); vx = new Float32Array(n); vy = new Float32Array(n);
+      tmp = new Float32Array(n); tmpx = new Float32Array(n); tmpy = new Float32Array(n);
+      luma = new Float32Array(n).fill(.5); safe = new Float32Array(n);
+      samp.width = cols; samp.height = rows;
+
+      const c = copy.getBoundingClientRect(), b = r, F = 60;
+      const x0 = c.left - b.left, x1 = c.right - b.left, y0 = c.top - b.top, y1 = c.bottom - b.top;
+      for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) {
+        const x = (i + .5) * CW, y = (j + .5) * CH;
+        const dx = Math.max(x0 - x, 0, x - x1), dy = Math.max(y0 - y, 0, y - y1);
+        safe[j * cols + i] = Math.min(1, Math.hypot(dx, dy) / F) * .85 + .15;
+      }
+      buildAtlas();
+      sampleVideo(true);
+    }
+
+    function sampleVideo(force) {
+      const src = video.readyState >= 2 && !video.paused ? video : poster;
+      const sw = src.videoWidth || src.naturalWidth, sh = src.videoHeight || src.naturalHeight;
+      if (!sw || !sh || !cols || !rows) return;
+      const k = Math.max(W / sw, H / sh), vw = W / k, vh = H / k;
+      sctx.drawImage(src, (sw - vw) / 2, (sh - vh) / 2, vw, vh, 0, 0, cols, rows);
+      const d = sctx.getImageData(0, 0, cols, rows).data, a = force ? 1 : .25;
+      for (let i = 0, n = cols * rows; i < n; i++) {
+        const l = (.2126 * d[i * 4] + .7152 * d[i * 4 + 1] + .0722 * d[i * 4 + 2]) / 255;
+        luma[i] += (l - luma[i]) * a;
+      }
+    }
+
+    let px = null, py = null;
+    function splat(x, y, dx, dy, amount, radius) {
+      const ci = x / CW, cj = y / CH, rc = radius / CW, rr = radius / CH;
+      const i0 = Math.max(0, Math.floor(ci - rc * 2)), i1 = Math.min(cols - 1, Math.ceil(ci + rc * 2));
+      const j0 = Math.max(0, Math.floor(cj - rr * 2)), j1 = Math.min(rows - 1, Math.ceil(cj + rr * 2));
+      for (let j = j0; j <= j1; j++) for (let i = i0; i <= i1; i++) {
+        const ex = (i - ci) / rc, ey = (j - cj) / rr, g = Math.exp(-(ex * ex + ey * ey));
+        if (g < .02) continue;
+        const k = j * cols + i;
+        dens[k] = Math.min(1.6, dens[k] + amount * g);
+        vx[k] += dx * g * .35; vy[k] += dy * g * .35;
+      }
+    }
+    function move(x, y, strength = 1) {
+      if (px === null) { px = x; py = y; }
+      const dx = x - px, dy = y - py, dist = Math.hypot(dx, dy), steps = Math.max(1, Math.ceil(dist / 10));
+      const r = 28 + Math.min(60, dist * .25);
+      for (let s = 1; s <= steps; s++) splat(px + dx * s / steps, py + dy * s / steps, dx / CW / steps, dy / CH / steps, .7 * strength, r);
+      px = x; py = y; wake();
+    }
+    function burst(x, y) {
+      for (let a = 0; a < 18; a++) {
+        const t = a / 18 * Math.PI * 2, rr = 30 + (a % 3) * 12;
+        splat(x + Math.cos(t) * rr, y + Math.sin(t) * rr, Math.cos(t) * 2.2, Math.sin(t) * 2.2, .8, 26);
+      }
+      wake();
+    }
+    const local = e => { const r = bg.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+    hero.addEventListener('pointermove', e => { const [x, y] = local(e); move(x, y, e.pointerType === 'touch' ? 1.4 : 1); }, { passive: true });
+    hero.addEventListener('pointerleave', () => { px = py = null; });
+    hero.addEventListener('pointerdown', e => { const [x, y] = local(e); px = x; py = y; burst(x, y); }, { passive: true });
+
+    function step() {
+      const n = cols * rows;
+      for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) {
+        const k = j * cols + i;
+        let x = i - vx[k], y = j - vy[k];
+        x = Math.max(0, Math.min(cols - 1.001, x)); y = Math.max(0, Math.min(rows - 1.001, y));
+        const x0 = x | 0, y0 = y | 0, fx = x - x0, fy = y - y0, a = y0 * cols + x0, b = a + 1, c = a + cols, d = c + 1;
+        const w00 = (1 - fx) * (1 - fy), w10 = fx * (1 - fy), w01 = (1 - fx) * fy, w11 = fx * fy;
+        tmp[k] = dens[a] * w00 + dens[b] * w10 + (dens[c] ?? 0) * w01 + (dens[d] ?? 0) * w11;
+        tmpx[k] = vx[a] * w00 + vx[b] * w10 + (vx[c] ?? 0) * w01 + (vx[d] ?? 0) * w11;
+        tmpy[k] = vy[a] * w00 + vy[b] * w10 + (vy[c] ?? 0) * w01 + (vy[d] ?? 0) * w11;
+      }
+      let max = 0;
+      for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) {
+        const k = j * cols + i;
+        const l = i > 0 ? tmp[k - 1] : 0, r = i < cols - 1 ? tmp[k + 1] : 0, u = j > 0 ? tmp[k - cols] : 0, dn = j < rows - 1 ? tmp[k + cols] : 0;
+        const v = (tmp[k] * 4 + l + r + u + dn) / 8 * .955;
+        dens[k] = v < .004 ? 0 : v; if (v > max) max = v;
+        vx[k] = tmpx[k] * .9; vy[k] = tmpy[k] * .9;
+      }
+      return max;
+    }
+    function draw() {
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      const cw = CW * dpr, ch = CH * dpr, last = CHARS.length - 1;
+      for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) {
+        const k = j * cols + i, d = dens[k];
+        if (d < .03) continue;
+
+        let l = Math.min(1, Math.max(0, (luma[k] - .5) * 2 + .5)); l = Math.pow(l, .5);
+
+        const g = Math.min(last, Math.floor(l * (last + 1)) + (d < .25 ? 2 : d < .5 ? 1 : 0));
+        ctx.globalAlpha = Math.min(.9, d * 1.8) * safe[k];
+        ctx.drawImage(atlas, g * cw, 0, cw, ch, Math.round(i * cw), Math.round(j * ch), cw, ch);
+      }
+      ctx.globalAlpha = 1;
+    }
+    function frame(t) {
+      if (!visible) { running = false; return; }
+      if (t - lastSample > 33) { sampleVideo(false); lastSample = t; }
+      const max = step(); draw();
+      if (max < .01) { running = false; ctx.clearRect(0, 0, cv.width, cv.height); return; }
+      requestAnimationFrame(frame);
+    }
+    function wake() { if (!running && visible) { running = true; requestAnimationFrame(frame); } }
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) wake(); }).observe(hero);
+    addEventListener('resize', resize);
+    new ResizeObserver(() => resize()).observe(bg);
+    resize();
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(buildAtlas);
+
+    setTimeout(() => {
+      const r = bg.getBoundingClientRect(), pts = 26;
+      let n = 0; px = py = null;
+      const tick = () => {
+        const t = n / pts, x = r.width * (.55 + .06 * Math.sin(t * Math.PI * 2)), y = r.height * (.9 - .78 * t);
+        move(x, y, .8); if (++n <= pts) requestAnimationFrame(tick); else px = py = null;
+      };
+      tick();
+    }, 1600);
+  })();
+
+  document.querySelectorAll('video[data-inview]').forEach(v => {
+    if (reduce) return;
+    new IntersectionObserver(([e]) => { e.isIntersecting ? v.play().catch(() => {}) : v.pause(); }, { rootMargin: '200px' }).observe(v);
+  });
+
+  const dome = (() => {
+    const cv = document.querySelector('.dome-canvas');
+    const sticky = document.querySelector('.sticky');
+    const ctx = cv.getContext('2d');
+    const state = { rise: 0, y: 200, scale: 1 };
+
+    const BELL_MAIN = [new Path2D('M1004.22 0C630.469 0 544.544 833 0 833H2000C1459.15 833 1384.29 0 1004.22 0Z'), 2000, 833];
+    const BELL_LIGHT = [new Path2D('M1154.85 0C725.04 0 626.226 1042 0 1042H2300C1678.02 1042 1591.93 0 1154.85 0Z'), 2300, 1042];
+    const C = { main: '#7B42F6', light: '#9C74FF', light2: '#B596FF' };
+    let W = 0, H = 0, EXT = 0, D = 8, cw = 0, ch = 0, P = 0, pw = 0, ph = 0, radii = [], buf = null, tmp = null, last = '';
+
+    const off = document.createElement('canvas'), octx = off.getContext('2d', { willReadFrequently: true });
+
+    const boxes = (sigma, n) => {
+      const wIdeal = Math.sqrt((12 * sigma * sigma / n) + 1);
+      let wl = Math.floor(wIdeal); if (wl % 2 === 0) wl--;
+      const wu = wl + 2;
+      const m = Math.round((12 * sigma * sigma - n * wl * wl - 4 * n * wl - 3 * n) / (-4 * wl - 4));
+      return Array.from({ length: n }, (_, i) => ((i < m ? wl : wu) - 1) / 2);
+    };
+
+    const pass = (src, dst, w, h, r, horiz) => {
+      const n = horiz ? w : h, lines = horiz ? h : w, step = horiz ? 4 : w * 4, k = 1 / (2 * r + 1);
+      for (let l = 0; l < lines; l++) {
+        const base = horiz ? l * w * 4 : l * 4;
+        for (let c = 0; c < 4; c++) {
+          let acc = 0;
+          for (let i = 0; i <= r && i < n; i++) acc += src[base + i * step + c];
+          for (let i = 0; i < n; i++) {
+            dst[base + i * step + c] = acc * k;
+            const add = i + r + 1, sub = i - r;
+            if (add < n) acc += src[base + add * step + c];
+            if (sub >= 0) acc -= src[base + sub * step + c];
+          }
+        }
+      }
+    };
+
+    function resize() {
+      W = sticky.clientWidth; H = sticky.clientHeight; EXT = cv.clientHeight - H;
+      const sigma = W * .0486;
+
+      D = Math.max(1, sigma / 4, Math.sqrt(W * (H + EXT) / 12000));
+      cw = Math.max(2, Math.ceil(W / D)); ch = Math.max(2, Math.ceil((H + EXT) / D));
+      cv.width = cw; cv.height = ch;
+      radii = boxes(sigma / D, 3);
+      P = radii.reduce((a, b) => a + b, 0);
+      pw = cw + 2 * P; ph = ch + 2 * P; off.width = pw; off.height = ph;
+      buf = new Float32Array(pw * ph * 4); tmp = new Float32Array(pw * ph * 4);
+      last = '';
+    }
+
+    function bell([path, bw, bh], top, height, scale, color) {
+
+      const k = height / bh, w = bw * k, cx = W / 2, cy = top + height / 2;
+      octx.save();
+      octx.translate(cx, cy); octx.scale(scale, scale); octx.translate(-cx, -cy);
+      octx.translate((W - w) / 2, top); octx.scale(k, k);
+      octx.fillStyle = color; octx.fill(path);
+      octx.restore();
+    }
+
+    function draw() {
+      if (!cw) return;
+      const vw = W / 100, st = state;
+      const key = st.rise.toFixed(4) + ' ' + st.y.toFixed(2) + ' ' + st.scale.toFixed(4);
+      if (key === last) return;
+      last = key;
+      ctx.clearRect(0, 0, cw, ch);
+      if (st.rise <= 0) return;
+      octx.setTransform(1, 0, 0, 1, 0, 0);
+      octx.clearRect(0, 0, pw, ph);
+
+      const sx = cw / W, sy = ch / (H + EXT);
+      octx.setTransform(sx, 0, 0, sy, P, P + EXT * sy);
+      const boxH = st.rise * H, top = H - boxH + st.y;
+      octx.save();
+      octx.beginPath(); octx.rect(0, top, W, boxH); octx.clip();
+
+      octx.fillStyle = C.light2; octx.fillRect(0, top + 44.19 * vw, W, 25 * vw);
+      bell(BELL_LIGHT, top, 45 * vw, st.scale, C.light);
+      octx.fillStyle = C.main; octx.fillRect(0, top + 54.375 * vw, W, 25 * vw);
+      bell(BELL_MAIN, top + 12.5 * vw, 45 * vw, st.scale, C.main);
+      octx.restore();
+
+      const img = octx.getImageData(0, 0, pw, ph), d = img.data, n = pw * ph * 4;
+      for (let i = 0; i < n; i += 4) { const a = d[i + 3] / 255; buf[i] = d[i] * a; buf[i + 1] = d[i + 1] * a; buf[i + 2] = d[i + 2] * a; buf[i + 3] = d[i + 3]; }
+      for (const r of radii) { pass(buf, tmp, pw, ph, r, true); pass(tmp, buf, pw, ph, r, false); }
+      for (let i = 0; i < n; i += 4) { const a = buf[i + 3]; const f = a > 0 ? 255 / a : 0; d[i] = buf[i] * f; d[i + 1] = buf[i + 1] * f; d[i + 2] = buf[i + 2] * f; d[i + 3] = a; }
+      ctx.putImageData(img, -P, -P);
+    }
+
+    function warm() {
+      const keep = { ...state };
+      Object.assign(state, { rise: 1, y: 0, scale: 2 }); draw();
+      Object.assign(state, { rise: .6, y: 80, scale: 1 }); draw();
+      Object.assign(state, keep); last = ''; ctx.clearRect(0, 0, cw, ch);
+    }
+    return { state, resize, draw, warm };
+  })();
+
+  if (animate) {
+
+    const ease = 'power3.out';
+    gsap.timeline({ defaults: { ease } })
+      .fromTo('.hero__bg', { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 1.6, ease: 'power2.out' }, 0)
+      .fromTo('.nav', { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: .8, clearProps: 'transform' }, .25)
+      .fromTo('.badge', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .8 }, .35)
+      .fromTo('.hero h1 .ln > span', { opacity: 1, yPercent: 105 }, { yPercent: 0, duration: 1.1, stagger: .1, ease: 'power4.out' }, .45)
+      .fromTo('.hero .lead', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .9 }, .75)
+      .fromTo('.hero__cta', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .9 }, .88)
+      .fromTo('.proof', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .9 }, 1)
+      .fromTo('.hero__phone', { opacity: 0, y: 120 }, { opacity: 1, y: 0, duration: 1.4, ease: 'power3.out' }, .55);
+
+    gsap.to('.hero__copy', { y: -60, opacity: .3, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+
+    gsap.fromTo('.hero__phone', { yPercent: 0 }, { yPercent: 10, ease: 'none', immediateRender: false, scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+
+    gsap.utils.toArray('[data-split]').forEach(h => {
+      gsap.from(h.querySelectorAll('.ln > span'), { yPercent: 105, duration: 1.1, stagger: .1, ease: 'power4.out', scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
+    });
+    gsap.utils.toArray('[data-reveal]').forEach(el => {
+      gsap.from(el, { opacity: 0, y: 24, duration: .9, ease, scrollTrigger: { trigger: el, start: 'top 90%', once: true } });
+    });
+    gsap.utils.toArray('[data-stagger]').forEach(g => {
+      gsap.from(g.children, { opacity: 0, y: 40, duration: .9, stagger: .08, ease, scrollTrigger: { trigger: g, start: 'top 88%', once: true } });
+    });
+
+    gsap.utils.toArray('[data-card]').forEach((c, i) => {
+      const st = { trigger: c, start: 'top 90%', once: true };
+      gsap.from(c, { opacity: 0, y: 60, duration: 1, delay: (i % 2) * .08, ease, scrollTrigger: st });
+      const z = c.querySelector('[data-zoom]');
+      if (z) gsap.from(z, { scale: 1.18, duration: 1.6, ease: 'power2.out', scrollTrigger: st });
+    });
+    gsap.from('[data-rise]', { yPercent: 40, opacity: 0, duration: 1.2, delay: .2, ease: 'power3.out', scrollTrigger: { trigger: '.fc1', start: 'top 80%', once: true } });
+    gsap.from('[data-float]', { y: 50, rotate: -8, opacity: 0, duration: 1.2, delay: .2, ease: 'back.out(1.6)', scrollTrigger: { trigger: '[data-float]', start: 'top 95%', once: true } });
+
+    gsap.fromTo('[data-box]', { clipPath: 'inset(6% 4% 0% 4% round 12px)' }, { clipPath: 'inset(0% 0% 0% 0% round 6px)', ease: 'none', scrollTrigger: { trigger: '[data-box]', start: 'top 95%', end: 'top 35%', scrub: true } });
+
+    const mm = gsap.matchMedia();
+    mm.add('(min-width: 1025px) and (hover: hover)', () => {
+      gsap.timeline({ scrollTrigger: { trigger: '.dome-section', start: 'top bottom', end: () => '+=' + innerHeight * 2, scrub: true, invalidateOnRefresh: true },
+                      onUpdate: dome.draw })
+        .fromTo(dome.state, { rise: 0, y: 200 }, { rise: 1, y: 0, ease: 'none', duration: .5 }, 0)
+        .fromTo(dome.state, { scale: 1 }, { scale: 3, ease: 'power1.inOut', duration: .45 }, .45)
+        .fromTo('.dome-fill', { opacity: 0 }, { opacity: 1, ease: 'none', duration: .5 }, .5);
+      const onResize = () => { dome.resize(); dome.draw(); };
+      addEventListener('resize', onResize);
+      dome.resize();
+      dome.warm();
+      dome.draw();
+
+      gsap.to('.intro__in', { y: () => -innerHeight * .22, opacity: 0, ease: 'none', scrollTrigger: { trigger: '.trust', start: 'top bottom', end: 'top 35%', scrub: true, invalidateOnRefresh: true } });
+
+      gsap.utils.toArray('.rail > li').forEach((li, i) => {
+        gsap.fromTo(li.children, { x: () => innerWidth * (.3 + i * .04), y: 90 + (i % 3) * 50, opacity: 0 }, {
+          x: 0, y: 0, opacity: 1, ease: 'power2.out',
+          scrollTrigger: { trigger: '.trust', start: 'top bottom', end: () => 'top ' + (40 - Math.min(i, 4) * 4) + '%', scrub: true, invalidateOnRefresh: true }
+        });
+      });
+      gsap.from('.rail-head, .links', { opacity: 0, y: 24, ease: 'none', stagger: .1, scrollTrigger: { trigger: '.trust', start: 'top 85%', end: 'top 30%', scrub: true } });
+      return () => removeEventListener('resize', onResize);
+    });
+    mm.add('(max-width: 1024px), (hover: none)', () => {
+      gsap.from('.rail-head, .links', { opacity: 0, y: 24, duration: .9, stagger: .1, ease, scrollTrigger: { trigger: '.trust', start: 'top 85%', once: true } });
+      gsap.from('.rail > li > *', { opacity: 0, y: 40, duration: .9, stagger: .04, ease, scrollTrigger: { trigger: '.rail', start: 'top 90%', once: true } });
+    });
+
+    mm.add('(min-width: 0px)', () => {
+      const rail = document.querySelector('.rail');
+      const max = () => Math.max(0, rail.scrollWidth - rail.clientWidth);
+      rail.classList.add('is-pinned');
+      const st = ScrollTrigger.create({
+        trigger: '.trust', start: 'top top', end: () => '+=' + max(), pin: true, anticipatePin: 1, invalidateOnRefresh: true,
+        onUpdate: self => { rail.scrollLeft = self.progress * max(); },
+        onRefresh: self => { rail.scrollLeft = self.progress * max(); }
+      });
+      return () => { st.kill(); rail.classList.remove('is-pinned'); };
+    });
+  }
+
+  (() => {
+    const rail = document.querySelector('.rail');
+    let down = false, moved = false, x0 = 0, l0 = 0;
+    rail.addEventListener('pointerdown', e => {
+      if (e.pointerType !== 'mouse' || e.button !== 0 || rail.classList.contains('is-pinned')) return;
+      down = true; moved = false; x0 = e.clientX; l0 = rail.scrollLeft;
+    });
+    addEventListener('pointermove', e => {
+      if (!down) return;
+      const dx = e.clientX - x0;
+      if (!moved && Math.abs(dx) > 4) { moved = true; rail.classList.add('is-drag'); }
+      if (moved) rail.scrollLeft = l0 - dx;
+    });
+    addEventListener('pointerup', () => { if (down) { down = false; rail.classList.remove('is-drag'); } });
+    rail.addEventListener('click', e => { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+  })();
+
+  (() => {
+    const out = document.querySelector('[data-scramble]');
+    if (reduce) return;
+    const hex = '0123456789abcdef';
+    const block = () => Array.from({ length: 4 }, () => hex[Math.random() * 16 | 0]).join('');
+    const render = () => {
+      out.innerHTML = Array.from({ length: 4 }, () =>
+        Array.from({ length: 4 }, () => { const b = block(); return Math.random() < .2 ? `<em>${b}</em>` : b; }).join(' ')).join('\n');
+    };
+    let timer = null;
+    new IntersectionObserver(([e]) => {
+      clearInterval(timer);
+      if (e.isIntersecting) timer = setInterval(render, 140);
+    }).observe(out);
+  })();
+
+  (() => {
+
+    const periods = {
+      monthly: { price: '$5.99', billing: 'Billed monthly. Cancel anytime.' },
+      annual:  { price: '$X.XX', billing: 'Billed annually. Cancel anytime.' },
+      '2y':    { price: '$X.XX', billing: 'Billed every 2 years. Cancel anytime.' }
+    };
+    const tabs = document.querySelector('.tabs');
+    const ind = tabs.querySelector('.tabs__ind');
+    const price = document.querySelector('[data-price]'), billing = document.querySelector('[data-billing]');
+    const place = t => { ind.style.setProperty('--x', t.offsetLeft + 'px'); ind.style.setProperty('--w', t.offsetWidth + 'px'); };
+    const select = t => {
+      tabs.querySelectorAll('.tab').forEach(b => b.setAttribute('aria-selected', String(b === t)));
+      place(t);
+      const p = periods[t.dataset.period];
+      const swap = () => { price.textContent = p.price; billing.textContent = p.billing; };
+      if (window.gsap && !reduce) gsap.timeline().to([price, billing], { opacity: 0, y: -8, duration: .15 }).add(swap).fromTo([price, billing], { y: 8 }, { opacity: 1, y: 0, duration: .3, ease: 'power3.out' });
+      else swap();
+    };
+    tabs.addEventListener('click', e => { const t = e.target.closest('.tab'); if (t) select(t); });
+    const sel = () => tabs.querySelector('[aria-selected="true"]');
+    addEventListener('resize', () => place(sel()));
+    document.fonts.ready.then(() => place(sel()));
+    place(sel());
+  })();
+
+  function setOpen(item, open) {
+    if (item.classList.contains('is-open') === open) return;
+    if (open) document.querySelectorAll('.qa.is-open').forEach(o => o !== item && setOpen(o, false));
+    item.classList.toggle('is-open', open);
+    item.querySelector('.qa__q').setAttribute('aria-expanded', String(open));
+    item.querySelector('.qa__a').inert = !open;
+  }
+  document.querySelectorAll('.qa__q').forEach(q => q.addEventListener('click', () => {
+    const item = q.closest('.qa');
+    setOpen(item, !item.classList.contains('is-open'));
+  }));
+  document.querySelectorAll('[data-open-faq]').forEach(b => b.addEventListener('click', () => {
+    const d = document.getElementById(b.dataset.openFaq);
+    setOpen(d, true);
+    scrollToEl(d, -120);
+  }));
+})();
+</script>
+<script>
+(() => {
+  const panel = document.querySelector('[data-tulip]');
+  if (!panel) return;
+  const still = document.documentElement.classList.contains('static') || matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const head = panel.querySelector('.uses__head'), bg = panel.querySelector('.uses__photo');
+  const cv = panel.querySelector('.uses__ascii'), ctx = cv.getContext('2d');
+  const off = document.createElement('canvas'), octx = off.getContext('2d', { willReadFrequently: true });
+
+  const CFG = { zoom: 1.1, ax: .35, ay: 0, lo: 82, textFade: .1 };
+  const RAMP = ['/', 'e', '+', '+', '*', '*', '*', '=', '=', '2'], SCRAMBLE = '/e+*=2';
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const hash = (x, y) => { let h = Math.imul(x | 0, 374761393) + Math.imul(y | 0, 668265263) | 0; h = Math.imul(h ^ (h >>> 13), 1274126177); return ((h ^ (h >>> 16)) >>> 0) / 4294967296; };
+  const img = new Image(); img.src = bg.currentSrc || bg.src;
+  let W, H, dpr, CW, CH, cols, rows, val, heat, zone, t0 = null, last = 0;
+  const m = { x: -1e4, y: -1e4, px: -1e4, py: -1e4 };
+
+  function layout() {
+    W = panel.clientWidth; H = panel.clientHeight; dpr = Math.min(2, devicePixelRatio || 1);
+    if (!W || !H) return;
+    cv.width = W * dpr; cv.height = H * dpr;
+    const s = Math.max(W / img.naturalWidth, H / img.naturalHeight) * CFG.zoom;
+    const ay = W > H * 1.3 ? .75 : CFG.ay;
+    const iw = img.naturalWidth * s, ih = img.naturalHeight * s, ix = (W - iw) * CFG.ax, iy = (H - ih) * ay;
+    Object.assign(bg.style, { left: ix + 'px', top: iy + 'px', width: iw + 'px', height: ih + 'px' });
+    CW = Math.max(10, Math.min(14, W / 48)); CH = CW * 1.85;
+    cols = Math.ceil(W / CW); rows = Math.ceil(H / CH);
+    const k = 3; off.width = cols * k; off.height = rows * k;
+    octx.imageSmoothingQuality = 'high';
+    octx.drawImage(img, ix / CW * k, iy / CH * k, iw / CW * k, ih / CH * k);
+    const d = octx.getImageData(0, 0, off.width, off.height).data;
+    val = new Float32Array(cols * rows); heat = new Float32Array(cols * rows); zone = new Float32Array(rows);
+    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+      let R = 0, G = 0, B = 0;
+      for (let y = 0; y < k; y++) for (let x = 0; x < k; x++) { const q = ((r * k + y) * off.width + c * k + x) * 4; R += d[q]; G += d[q + 1]; B += d[q + 2]; }
+      R /= k * k; G /= k * k; B /= k * k;
+      val[r * cols + c] = clamp((R - .25 * G - .15 * B - CFG.lo) / 100);
+    }
+
+    const tb = head.offsetTop + head.offsetHeight;
+    for (let r = 0; r < rows; r++) { const y = (r + .5) * CH, u = clamp((y - tb + 10) / 170); zone[r] = CFG.textFade + (1 - CFG.textFade) * u * u * (3 - 2 * u); }
+    if (still) draw(0);
+  }
+
+  panel.addEventListener('pointermove', (e) => { const r = panel.getBoundingClientRect(); m.x = e.clientX - r.left; m.y = e.clientY - r.top; });
+  panel.addEventListener('pointerleave', () => { m.x = m.y = m.px = m.py = -1e4; });
+
+  function draw(t) {
+    if (!val) return;
+    if (t0 === null) t0 = t;
+    const dt = Math.min(.05, t - (last || t)); last = t;
+
+    if (m.x > -1e3 && !still) {
+      const steps = m.px > -1e3 ? Math.min(12, Math.ceil(Math.hypot(m.x - m.px, m.y - m.py) / 10)) : 1;
+      for (let s = 1; s <= steps; s++) {
+        const x = m.px > -1e3 ? m.px + (m.x - m.px) * s / steps : m.x, y = m.px > -1e3 ? m.py + (m.y - m.py) * s / steps : m.y;
+        const R = 70, c0 = Math.floor((x - R) / CW), c1 = Math.ceil((x + R) / CW), r0 = Math.floor((y - R) / CH), r1 = Math.ceil((y + R) / CH);
+        for (let r = Math.max(0, r0); r <= Math.min(rows - 1, r1); r++) for (let c = Math.max(0, c0); c <= Math.min(cols - 1, c1); c++) {
+          const dd = Math.hypot((c + .5) * CW - x, (r + .5) * CH - y) / R; if (dd < 1) { const i = r * cols + c; heat[i] = Math.max(heat[i], (1 - dd) * (1 - dd)); }
+        }
+      }
+      m.px = m.x; m.py = m.y;
+    }
+    const decay = Math.pow(.18, dt), intro = still ? 9 : t - t0;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+    ctx.font = `500 ${Math.round(CW * 1.2)}px ui-monospace, "SF Mono", Menlo, Consolas, monospace`;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#fff';
+    for (let r = 0; r < rows; r++) {
+      const y = (r + .5) * CH;
+      for (let c = 0; c < cols; c++) {
+        const i = r * cols + c, x = (c + .5) * CW;
+        heat[i] *= decay; const h = heat[i];
+        const breathe = .82 + .18 * Math.sin(t * .9 - x * .011 - y * .007);
+        const v = val[i] * breathe * zone[r];
+        const rev = clamp((intro * 1.4 - (1 - r / rows) * .9) * 2.2);
+        if (rev <= 0) continue;
+        const I = Math.max(v, h * (.12 + .73 * zone[r]));
+        if (I < .1) continue;
+        let g;
+        if (h > .12 || rev < 1) g = SCRAMBLE[Math.floor(hash(i, Math.floor(t * 14)) * SCRAMBLE.length)];
+        else {
+          let k = Math.min(RAMP.length - 1, Math.floor(Math.pow(I, .8) * RAMP.length));
+          if (!still && hash(i, Math.floor(t * 1.5 + hash(i, 7) * 9)) < .04) k = Math.max(0, k - 2);
+          g = RAMP[k];
+        }
+        let ox = 0, oy = 0;
+        if (m.x > -1e3) { const dx = x - m.x, dy = y - m.y, dd = Math.hypot(dx, dy); if (dd < 110 && dd > 1) { const f = (1 - dd / 110) ** 2 * 10; ox = dx / dd * f; oy = dy / dd * f; } }
+        ctx.globalAlpha = Math.min(1, (.2 + .8 * Math.pow(I, 1.1)) * rev);
+        ctx.fillText(g, x + ox, y + oy);
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  img.decode().then(() => {
+    layout(); new ResizeObserver(layout).observe(panel);
+    if (still) return;
+    let on = false;
+    const tick = (now) => { if (!on) return; draw(now / 1000); requestAnimationFrame(tick); };
+    new IntersectionObserver(([e]) => { const was = on; on = e.isIntersecting; if (on && !was) requestAnimationFrame(tick); }, { threshold: .15 }).observe(panel);
+  }).catch(() => {});
+})();
+</script>
+<script>
+(() => {
+  const box = document.querySelector('.use--c06 .eyes');
+  if (!box) return;
+  const reduce = document.documentElement.classList.contains('static') || matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
+  const eyes = [...box.querySelectorAll('.eye')], mouth = box.querySelector('.mouth');
+  const pairs = [...new Set(eyes.map(e => e.dataset.pair))];
+  let visible = false, lastMove = 0;
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(box);
+
+  const blink = (pair) => {
+    const els = eyes.filter(e => e.dataset.pair === pair);
+    const once = (then) => { els.forEach(e => e.classList.add('is-blink')); setTimeout(() => { els.forEach(e => e.classList.remove('is-blink')); then && setTimeout(then, 140); }, 110); };
+    if (visible) Math.random() < .25 ? once(() => once()) : once();
+    setTimeout(() => blink(pair), 1800 + Math.random() * 3600);
+  };
+  pairs.forEach((p, i) => setTimeout(() => blink(p), 600 + i * 700));
+
+  const look = (x, y) => eyes.forEach(e => {
+    const r = e.getBoundingClientRect(), dx = x - (r.left + r.width / 2), dy = y - (r.top + r.height / 2), d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 160);
+    e.style.setProperty('--dx', (dx / d * k).toFixed(3)); e.style.setProperty('--dy', (dy / d * k).toFixed(3));
+  });
+  addEventListener('pointermove', (ev) => { if (!visible) return; lastMove = performance.now(); look(ev.clientX, ev.clientY); }, { passive: true });
+
+  setInterval(() => {
+    if (!visible || performance.now() - lastMove < 2500) return;
+    const p = pairs[Math.floor(Math.random() * pairs.length)], a = Math.random() * Math.PI * 2, k = .5 + Math.random() * .5;
+    eyes.filter(e => e.dataset.pair === p).forEach(e => { e.style.setProperty('--dx', (Math.cos(a) * k).toFixed(3)); e.style.setProperty('--dy', (Math.sin(a) * k).toFixed(3)); });
+    if (mouth && Math.random() < .35) { mouth.style.transform = `rotate(${(Math.random() * 16 - 8).toFixed(1)}deg) scaleX(${(.8 + Math.random() * .4).toFixed(2)})`; }
+  }, 900);
+})();
+</script>
+</body>
+</html>
